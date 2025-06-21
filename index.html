@@ -5,30 +5,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>En Boca de Todos – Pedidos</title>
   <style>
-    :root{font-family:sans-serif;}
-    body{
-      margin:0;
-      padding:1rem;
-      background:#f7f7f7 url('images/background.jpg') top center no-repeat;
+    :root { font-family: sans-serif; }
+    body {
+      margin: 0;
+      padding: 1rem;
+      background: #f7f7f7 url('images/background.jpg') top center no-repeat;
       background-size: cover;
-      color:#333;
+      color: #333;
     }
-    .wrap{max-width:600px;margin:auto;background:#fff;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.1);padding:1rem;}
-    .header{display:flex;align-items:center;justify-content:center;margin-bottom:1rem;gap:1rem;}
-    .header img{height:100px;width:auto;border-radius:12px;box-shadow:0 2px 4px rgba(0,0,0,0.1);}
-    h1{margin:0;text-align:center;font-size:1.8rem;color:#d62828;font-weight:900;letter-spacing:0.5px;text-transform:uppercase;}
-    .producto{margin:1rem 0;border-bottom:1px solid #eee;padding-bottom:1rem;}
-    .producto-inner{display:flex;align-items:center;}
-    .producto img{width:80px;height:80px;object-fit:cover;border-radius:8px;margin-right:1rem;}
-    .info{flex:1;}
-    .qty{width:60px;margin-left:0.5rem;}
-    label{display:block;margin:0.75rem 0;}
-    button{background:#ffcc00;color:#000;border:none;padding:0.8rem 1.5rem;font-size:1rem;border-radius:8px;cursor:pointer;font-weight:bold;box-shadow:0 2px 4px rgba(0,0,0,0.2);}
-    button:disabled{background:#aaa;}
-    .total{font-size:1.2rem;font-weight:bold;margin-top:1rem;text-align:right;}
-    .footer{margin-top:2rem;font-size:0.9rem;text-align:center;color:#666;}
-    .aderezo{margin-top:0.5rem;}
-    .aderezo input{margin-right:0.5rem;}
+    .wrap {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.1);
+      padding: 1rem;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+    .header img {
+      height: 100px;
+      width: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin: 0;
+      text-align: center;
+      font-size: 1.8rem;
+      color: #d62828;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .producto {
+      margin: 1rem 0;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 1rem;
+    }
+    .producto-inner {
+      display: flex;
+      align-items: center;
+    }
+    .producto img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 1rem;
+    }
+    .info { flex: 1; }
+    .qty { width: 60px; margin-left: 0.5rem; }
+    label { display: block; margin: 0.75rem 0; }
+    button {
+      background: #ffcc00;
+      color: #000;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    button:disabled { background: #aaa; }
+    .total {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 1rem;
+      text-align: right;
+    }
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #666;
+    }
+    .aderezo { margin-top: 0.5rem; }
+    .aderezo input { margin-right: 0.5rem; }
   </style>
 </head>
 <body>
@@ -155,13 +214,28 @@
         }
       });
 
+      if (detalles.length === 0) {
+        alert('Agregá al menos un producto al pedido.');
+        return;
+      }
+
       let mensaje = `Hola! Quiero pedir: ${detalles.join(', ')}.`;
       if (chkEnvio.checked) mensaje += ` Con envío a ${dir}.`;
       else mensaje += ' Retiro en el local.';
       mensaje += ` Total $${calcularTotal()}. Mi teléfono: ${tel}.`;
 
       const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
-      window.open(url, '_blank');
+
+      const enlace = document.createElement('a');
+      enlace.href = url;
+      enlace.target = '_blank';
+      enlace.rel = 'noopener noreferrer';
+      enlace.click();
+
+      setTimeout(() => {
+        if (!document.hasFocus()) return;
+        alert('Si WhatsApp no se abrió automáticamente, tocá este enlace:\n\n' + url);
+      }, 1500);
     });
   </script>
 </body>
