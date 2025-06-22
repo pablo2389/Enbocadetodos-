@@ -38,46 +38,82 @@
     }
 
     /* Navbar estilo */
-    #navbar {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin: 1rem 0;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none; /* Firefox */
-      scroll-behavior: smooth;
-    }
-    #navbar::-webkit-scrollbar {
-      display: none; /* Chrome, Safari y Opera */
-    }
-    #navbar button {
-      background: #ffcc00;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      flex-shrink: 0;
-      white-space: nowrap;
-      transition: background 0.3s, color 0.3s;
-    }
-    #navbar button.active,
-    #navbar button:hover {
-      background: #d62828;
-      color: white;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-    @media (max-width: 480px) {
-      #navbar {
-        gap: 0.5rem;
-        padding: 0 0.5rem;
-      }
-      #navbar button {
-        padding: 1rem 2rem;
-        font-size: 1.1rem;
-      }
-    }
+ /* Navbar estilo */
+#navbar {
+  display: flex;
+  justify-content: flex-start; /* scroll natural */
+  gap: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  scroll-behavior: smooth;
+  padding: 0 0.5rem;
+  white-space: nowrap;
+}
+#navbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari y Opera */
+}
+#navbar button {
+  background: #ffcc00;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+  transition: background 0.3s, color 0.3s;
+  min-width: max-content;
+}
+#navbar button.active,
+#navbar button:hover {
+  background: #d62828;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Responsive navbar */
+
+/* Móvil: hasta 600px */
+@media (max-width: 600px) {
+  #navbar {
+    gap: 0.4rem;
+    padding: 0 0.25rem;
+  }
+  #navbar button {
+    padding: 0.9rem 1.2rem;
+    font-size: 1rem;
+    min-width: auto;
+  }
+}
+
+/* Tablet: 601px a 900px */
+@media (min-width: 601px) and (max-width: 900px) {
+  #navbar {
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+  }
+  #navbar button {
+    padding: 0.85rem 1.4rem;
+    font-size: 1.05rem;
+    min-width: max-content;
+  }
+}
+
+/* Escritorio: más de 900px */
+@media (min-width: 901px) {
+  #navbar {
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+  #navbar button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    min-width: max-content;
+  }
+}
+
 
     /* Carrusel horizontal */
     #listaProductos {
