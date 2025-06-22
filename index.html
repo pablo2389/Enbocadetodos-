@@ -1,274 +1,564 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🍔 Rotisería En Boca de Todos – Guaymallén, Mendoza</title>
-  <link rel="icon" type="image/png" href="images/favicon-32x32.png" />
-  <style>
-    :root { font-family: sans-serif; }
-    body {
-      margin: 0;
-      padding: 1rem;
-      background: #f7f7f7 url('images/background.jpg') top center no-repeat;
-      background-size: cover;
-      color: #333;
-    }
-    .wrap { max-width: 600px; margin: auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,.1); padding: 1rem; }
-    .banner-image {
-      width: 100%; max-height: 220px; object-fit: cover; border-radius: 12px; margin-bottom: 1rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2); transition: transform 0.3s ease; cursor: pointer;
-    }
-    .banner-image:hover { transform: scale(1.05); box-shadow: 0 6px 12px rgba(0,0,0,0.3); }
-    .header img {
-      height: 100px; width: auto; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease; cursor: pointer;
-    }
-    .header img:hover { transform: scale(1.1); box-shadow: 0 4px 8px rgba(0,0,0,0.3); z-index: 10; }
-    h1 {
-      margin: 0; text-align: center; font-size: 1.8rem; color: #d62828; font-weight: 900;
-      letter-spacing: 0.5px; text-transform: uppercase;
-    }
-    .producto { margin: 1rem 0; border-bottom: 1px solid #eee; padding-bottom: 1rem; }
-    .producto-inner { display: flex; align-items: center; }
-    .producto img {
-      width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-right: 1rem;
-      transition: transform 0.3s ease; cursor: pointer;
-    }
-    .producto img:hover { transform: scale(1.1); z-index: 10; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
-    .info { flex: 1; }
-    .qty { width: 60px; margin-left: 0.5rem; }
-    label { display: block; margin: 0.75rem 0; }
-    button {
-      background: #ffcc00; color: #000; border: none; padding: 0.8rem 1.5rem;
-      font-size: 1rem; border-radius: 8px; cursor: pointer; font-weight: bold;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-    button:disabled { background: #aaa; }
-    .total { font-size: 1.2rem; font-weight: bold; margin-top: 1rem; text-align: right; }
-    .footer {
-      margin-top: 2rem; font-size: 0.9rem; text-align: center; color: #666;
-    }
-    .aderezo { margin-top: 0.5rem; }
-    .aderezo input { margin-right: 0.5rem; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>🍔 Rotisería En Boca de Todos – Guaymallén, Mendoza</title>
+<link rel="icon" type="image/png" href="images/favicon-32x32.png" />
+<style>
+  :root {
+    font-family: sans-serif;
+  }
+  body {
+    margin: 0;
+    padding: 1rem;
+    background: url('images/background.jpg') no-repeat center top;
+    background-size: cover;
+    color: #333;
+    position: relative;
+    overflow-x: hidden;
+  }
+  /* RGB Overlay Animado Suave */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    background: linear-gradient(270deg,
+      rgba(255,0,0,0.15),
+      rgba(0,255,255,0.15),
+      rgba(0,255,0,0.15),
+      rgba(0,0,255,0.15),
+      rgba(255,0,0,0.15));
+    background-size: 1000% 1000%;
+    animation: rgbShift 30s linear infinite;
+    z-index: 0;
+  }
+  @keyframes rgbShift {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
 
-    #ticket {
-      display: none; margin-top: 2rem; background: #fff; padding: 1rem;
-      border: 1px solid #ccc; border-radius: 8px;
-    }
-    #ticket h2 { text-align: center; color: #d62828; }
-    #contenidoTicket { white-space: pre-wrap; font-size: 0.95rem; margin-bottom: 1rem; }
-  </style>
+  .wrap {
+    max-width: 620px;
+    margin: auto;
+    background: #fffccfcc;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    padding: 1rem 1.5rem 3rem;
+    position: relative;
+    z-index: 10;
+  }
+  .banner-image {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  .banner-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  }
+  h1 {
+    margin: 0 0 1rem 0;
+    text-align: center;
+    font-size: 2rem;
+    color: #d62828;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* Navbar botones de categorías */
+  .navbar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .navbar button {
+    background: #ffcc00;
+    border: none;
+    padding: 0.5rem 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 25px;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease;
+  }
+  .navbar button.active, .navbar button:hover {
+    background: #d62828;
+    color: white;
+  }
+
+  /* Carrusel */
+  .carrusel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 15px;
+    padding-bottom: 10px;
+    margin-bottom: 1rem;
+  }
+  .producto {
+    flex: 0 0 auto;
+    width: 180px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .producto-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .producto img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 0.6rem;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+  }
+  .producto img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  }
+  .info {
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .precio {
+    font-weight: 700;
+    color: #d62828;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  .qty {
+    width: 60px;
+    align-self: center;
+    margin-bottom: 0.5rem;
+  }
+  .aderezo {
+    font-size: 0.85rem;
+    margin-top: auto;
+  }
+  .aderezo input {
+    width: 100%;
+    margin-top: 0.2rem;
+    padding: 0.25rem 0.4rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 0.85rem;
+  }
+
+  /* Form entrega */
+  label {
+    display: block;
+    margin: 0.75rem 0;
+    font-weight: 600;
+  }
+  input[type="number"], input[type="tel"], input[type="text"] {
+    width: 100%;
+    padding: 0.4rem 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+    font-size: 1rem;
+  }
+
+  /* Total y botón */
+  .total {
+    font-size: 1.3rem;
+    font-weight: 900;
+    margin-top: 1rem;
+    text-align: right;
+    color: #d62828;
+  }
+  button#btnEnviar {
+    background: #d62828;
+    color: white;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 900;
+    margin-top: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease;
+  }
+  button#btnEnviar:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+  }
+
+  /* Ticket */
+  #ticket {
+    display: none;
+    margin-top: 2rem;
+    background: #fff;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+  }
+  #ticket h2 {
+    text-align: center;
+    color: #d62828;
+    margin-bottom: 0.7rem;
+  }
+  #ticket-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  #ticket-buttons button {
+    background: #ffcc00;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    text-align: center;
+    color: #666;
+  }
+  .footer a {
+    color: #d62828;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Scrollbar carrusel (solo webkit) */
+  .carrusel::-webkit-scrollbar {
+    height: 8px;
+  }
+  .carrusel::-webkit-scrollbar-thumb {
+    background: #d62828aa;
+    border-radius: 4px;
+  }
+  .carrusel::-webkit-scrollbar-track {
+    background: #eee;
+  }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <img src="images/imagen body.jpg" alt="Banner" class="banner-image">
-    <h1>Hacé tu pedido</h1>
-    <form id="formPedido">
-      <div id="listaProductos"></div>
 
-      <!-- Cambié checkbox por radio para que sea exclusiva -->
-      <label>
-        <input type="radio" name="tipoEntrega" value="retiro" id="retiro" checked>
-        Retiro en local (sin envío)
-      </label>
-      <label>
-        <input type="radio" name="tipoEntrega" value="envio" id="envio">
-        Con envío hasta 1 km (+$<span id="precioEnvio"></span>). Más de 1 km: $500 por km adicional
-      </label>
+<div class="wrap">
+  <img src="images/imagen body.jpg" alt="Banner" class="banner-image" />
+  <h1>Hacé tu pedido</h1>
 
-      <label>Distancia estimada en km (solo si es más de 1 km)
-        <input type="number" id="distanciaExtra" min="0" step="0.1" placeholder="Ej: 2" disabled>
-      </label>
-
-      <label>Tu teléfono
-        <input type="tel" id="telCliente" required placeholder="2616224435">
-      </label>
-      <label>Dirección
-        <input type="text" id="dirCliente" placeholder="Barrio San Javier…" disabled>
-      </label>
-
-      <p class="total">Total: $<span id="txtTotal">0</span></p>
-      <button type="submit" id="btnEnviar" disabled>Enviar por WhatsApp</button>
-    </form>
-
-    <!-- 🧾 Ticket -->
-    <div id="ticket">
-      <h2>🧾 Tu comprobante</h2>
-      <pre id="contenidoTicket"></pre>
-      <button onclick="copiarTicket()">📋 Copiar resumen</button>
-      <button onclick="descargarTicket()">⬇️ Descargar .txt</button>
-    </div>
-
-    <div class="footer">
-      <p><strong>Rotisería "En Boca de Todos"</strong></p>
-      <p>📍 Barrio San Javier, Manzana Q, Casa 17 – Mendoza</p>
-      <p>📞 Tels: 261 622‑4435 / 261 634‑5099 / 261 503‑8515</p>
-      <p>🌐 <a href="https://enbocadetod0s.netlify.app" target="_blank">enbocadetod0s.netlify.app</a></p>
-    </div>
+  <div class="navbar" role="tablist" aria-label="Categorías de productos">
+    <button class="active" data-cat="todos" role="tab" aria-selected="true" tabindex="0">Todos</button>
+    <button data-cat="hamburguesas" role="tab" aria-selected="false" tabindex="-1">Hamburguesas</button>
+    <button data-cat="papas" role="tab" aria-selected="false" tabindex="-1">Papas</button>
+    <button data-cat="panchos" role="tab" aria-selected="false" tabindex="-1">Panchos</button>
+    <button data-cat="pizzas" role="tab" aria-selected="false" tabindex="-1">Pizzas</button>
   </div>
 
-  <script>
-    const numeroWhatsApp = '5492616224435';
-    const costoEnvio = 500;
+  <form id="formPedido" aria-live="polite">
+    <div class="carrusel" id="listaProductos" tabindex="0" aria-label="Lista de productos en carrusel"></div>
 
-    const productos = [
-      { id: 1, nombre: 'Chesse Burguer', precio: 4800, foto: 'images/chesseburguer.jpg' },
-      { id: 2, nombre: 'Cono de papas', precio: 2400, foto: 'images/Cono-papas.jpg' },
-      { id: 3, nombre: 'Fugazzeta', precio: 7800, foto: 'images/fugazzeta.jpg' },
-      { id: 4, nombre: 'Hamburguesa mediana + guarnición', precio: 7800, foto: 'images/Hamburgesamediana-guarnicion.jpg' },
-      { id: 5, nombre: 'Hamburguesa completa', precio: 11000, foto: 'images/Hamburguesacompleta.jpg' },
-      { id: 6, nombre: 'Pancho con poncho', precio: 2700, foto: 'images/panchoconponcho.jpg' },
-      { id: 7, nombre: 'Panchos + lluvia de papas', precio: 2000, foto: 'images/panchoslluviapapas.jpg' },
-      { id: 8, nombre: 'Papas chicas', precio: 4000, foto: 'images/papas-chicas.jpg' },
-      { id: 9, nombre: 'Papas a caballo', precio: 6000, foto: 'images/papasacaballo.jpg' },
-      { id: 10, nombre: 'Papas grandes', precio: 5000, foto: 'images/papasgrandes.jpg' },
-      { id: 11, nombre: 'Pizza especial', precio: 7800, foto: 'images/pizza-especial.jpg' }
-    ];
+    <label>
+      <input type="radio" name="tipoEntrega" value="retiro" id="retiro" checked />
+      Retiro en local (sin envío)
+    </label>
+    <label>
+      <input type="radio" name="tipoEntrega" value="envio" id="envio" />
+      Envío hasta 1 km ($500). Más de 1 km: $500 por km adicional
+    </label>
 
-    const lista = document.getElementById('listaProductos');
-    const retiroRadio = document.getElementById('retiro');
-    const envioRadio = document.getElementById('envio');
-    const distanciaExtra = document.getElementById('distanciaExtra');
-    const dirCliente = document.getElementById('dirCliente');
-    const precioEnvioSpan = document.getElementById('precioEnvio');
-    const totalSpan = document.getElementById('txtTotal');
-    const btnEnviar = document.getElementById('btnEnviar');
-    precioEnvioSpan.textContent = costoEnvio;
+    <label>
+      Distancia estimada en km (solo si es más de 1 km)
+      <input type="number" id="distanciaExtra" min="0" step="0.1" placeholder="Ej: 2" disabled aria-disabled="true" />
+    </label>
 
-    productos.forEach(p => {
+    <label>
+      Tu teléfono
+      <input type="tel" id="telCliente" required placeholder="2616224435" aria-required="true" />
+    </label>
+
+    <label>
+      Dirección
+      <input type="text" id="dirCliente" placeholder="Barrio San Javier…" disabled aria-disabled="true" />
+    </label>
+
+    <p class="total" aria-live="polite">Total: $<span id="txtTotal">0</span></p>
+
+    <button type="submit" id="btnEnviar" disabled>Enviar por WhatsApp</button>
+  </form>
+
+  <section id="ticket" aria-live="polite" aria-label="Comprobante de pedido">
+    <h2>🧾 Tu comprobante</h2>
+    <pre id="contenidoTicket"></pre>
+    <div id="ticket-buttons">
+      <button onclick="copiarTicket()" aria-label="Copiar resumen al portapapeles">📋 Copiar resumen</button>
+      <button onclick="descargarTicket()" aria-label="Descargar resumen como archivo de texto">⬇️ Descargar .txt</button>
+    </div>
+  </section>
+
+  <div class="footer" role="contentinfo">
+    <p><strong>Rotisería "En Boca de Todos"</strong></p>
+    <p>📍 Barrio San Javier, Manzana Q, Casa 17 – Mendoza</p>
+    <p>📞 Tels: 261 622‑4435 / 261 634‑5099 / 261 503‑8515</p>
+    <p>🌐 <a href="https://enbocadetod0s.netlify.app" target="_blank" rel="noopener">enbocadetod0s.netlify.app</a></p>
+  </div>
+</div>
+
+<script>
+  const numeroWhatsApp = '5492616224435';
+  const costoEnvioBase = 500;
+
+  // Productos con categorías
+  const productos = [
+    { id: 1, nombre: 'Chesse Burguer', precio: 4800, foto: 'images/chesseburguer.jpg', categoria: 'hamburguesas' },
+    { id: 2, nombre: 'Cono de papas', precio: 2400, foto: 'images/Cono-papas.jpg', categoria: 'papas' },
+    { id: 3, nombre: 'Fugazzeta', precio: 7800, foto: 'images/fugazzeta.jpg', categoria: 'pizzas' },
+    { id: 4, nombre: 'Hamburguesa mediana + guarnición', precio: 7800, foto: 'images/Hamburgesamediana-guarnicion.jpg', categoria: 'hamburguesas' },
+    { id: 5, nombre: 'Hamburguesa completa', precio: 11000, foto: 'images/Hamburguesacompleta.jpg', categoria: 'hamburguesas' },
+    { id: 6, nombre: 'Pancho con poncho', precio: 2700, foto: 'images/panchoconponcho.jpg', categoria: 'panchos' },
+    { id: 7, nombre: 'Panchos + lluvia de papas', precio: 2000, foto: 'images/panchoslluviapapas.jpg', categoria: 'panchos' },
+    { id: 8, nombre: 'Papas chicas', precio: 4000, foto: 'images/papas-chicas.jpg', categoria: 'papas' },
+    { id: 9, nombre: 'Papas a caballo', precio: 6000, foto: 'images/papasacaballo.jpg', categoria: 'papas' },
+    { id: 10, nombre: 'Papas grandes', precio: 5000, foto: 'images/papasgrandes.jpg', categoria: 'papas' },
+    { id: 11, nombre: 'Pizza especial', precio: 7800, foto: 'images/pizza-especial.jpg', categoria: 'pizzas' }
+  ];
+
+  const listaProductos = document.getElementById('listaProductos');
+  const btnEnviar = document.getElementById('btnEnviar');
+  const retiroRadio = document.getElementById('retiro');
+  const envioRadio = document.getElementById('envio');
+  const distanciaExtra = document.getElementById('distanciaExtra');
+  const dirCliente = document.getElementById('dirCliente');
+  const totalSpan = document.getElementById('txtTotal');
+  const navbarButtons = document.querySelectorAll('.navbar button');
+  const contenidoTicket = document.getElementById('contenidoTicket');
+  const ticketSection = document.getElementById('ticket');
+  const telCliente = document.getElementById('telCliente');
+
+  // Renderizado inicial todos los productos
+  function renderProductos(categoria = 'todos') {
+    listaProductos.innerHTML = '';
+    let prods = categoria === 'todos' ? productos : productos.filter(p => p.categoria === categoria);
+
+    prods.forEach(p => {
       const div = document.createElement('div');
       div.className = 'producto';
+      div.dataset.categoria = p.categoria;
       div.innerHTML = `
         <div class="producto-inner">
-          <img src="${p.foto}" alt="${p.nombre}">
-          <div class="info">
-            <strong>${p.nombre}</strong><br>$${p.precio}
+          <img src="${p.foto}" alt="${p.nombre}" loading="lazy" />
+          <div class="info">${p.nombre}</div>
+          <div class="precio">$${p.precio}</div>
+          <input type="number" min="0" value="0" data-id="${p.id}" class="qty" aria-label="Cantidad de ${p.nombre}" />
+          <div class="aderezo">
+            <label>
+              Aderezos:
+              <input type="text" placeholder="Ej: mayonesa, ketchup" data-aderezo-id="${p.id}" aria-label="Aderezos para ${p.nombre}" />
+            </label>
           </div>
-          <input type="number" min="0" value="0" data-id="${p.id}" class="qty">
-        </div>
-        <div class="aderezo">
-          <label>Aderezos:
-            <input type="text" placeholder="Ej: mayonesa, ketchup" data-aderezo-id="${p.id}">
-          </label>
         </div>
       `;
-      lista.appendChild(div);
+      listaProductos.appendChild(div);
+    });
+    actualizarListenersInputs();
+  }
+
+  // Actualizar listeners de inputs cada vez que se renderizan productos
+  function actualizarListenersInputs() {
+    document.querySelectorAll('.qty, .aderezo input').forEach(input => {
+      input.addEventListener('input', calcularTotal);
+    });
+  }
+
+  // Cambiar categoría con navbar
+  navbarButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      navbarButtons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+        b.tabIndex = -1;
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      btn.tabIndex = 0;
+      renderProductos(btn.dataset.cat);
+      calcularTotal();
+    });
+  });
+
+  // Entrega: activar/desactivar inputs
+  function actualizarCamposEntrega() {
+    if (envioRadio.checked) {
+      distanciaExtra.disabled = false;
+      distanciaExtra.setAttribute('aria-disabled', 'false');
+      dirCliente.disabled = false;
+      dirCliente.setAttribute('aria-disabled', 'false');
+      dirCliente.required = true;
+    } else {
+      distanciaExtra.disabled = true;
+      distanciaExtra.value = '';
+      distanciaExtra.setAttribute('aria-disabled', 'true');
+      dirCliente.disabled = true;
+      dirCliente.value = '';
+      dirCliente.setAttribute('aria-disabled', 'true');
+      dirCliente.required = false;
+    }
+    calcularTotal();
+  }
+  retiroRadio.addEventListener('change', actualizarCamposEntrega);
+  envioRadio.addEventListener('change', actualizarCamposEntrega);
+
+  // Calcular total
+  function calcularTotal() {
+    let total = 0;
+    document.querySelectorAll('.qty').forEach(inp => {
+      const cantidad = parseInt(inp.value) || 0;
+      if (cantidad > 0) {
+        const prod = productos.find(p => p.id == inp.dataset.id);
+        total += cantidad * prod.precio;
+      }
     });
 
-    function actualizarCamposEntrega() {
-      if (envioRadio.checked) {
-        distanciaExtra.disabled = false;
-        dirCliente.disabled = false;
-        dirCliente.required = true;
-      } else {
-        distanciaExtra.disabled = true;
-        distanciaExtra.value = '';
-        dirCliente.disabled = true;
-        dirCliente.value = '';
-        dirCliente.required = false;
-      }
+    if (envioRadio.checked) {
+      let extra = parseFloat(distanciaExtra.value) || 0;
+      let envioTotal = costoEnvioBase;
+      if (extra > 1) envioTotal += (Math.ceil(extra - 1)) * 500;
+      total += envioTotal;
+    }
+
+    totalSpan.textContent = total;
+    btnEnviar.disabled = total === 0;
+    return total;
+  }
+
+  // Evento para inputs cantidad y distancia
+  document.addEventListener('input', e => {
+    if (e.target.classList.contains('qty') || e.target === distanciaExtra) {
       calcularTotal();
     }
+  });
 
-    retiroRadio.addEventListener('change', actualizarCamposEntrega);
-    envioRadio.addEventListener('change', actualizarCamposEntrega);
+  // Inicializar campos
+  actualizarCamposEntrega();
 
-    function calcularTotal() {
-      let total = 0;
-      document.querySelectorAll('.qty').forEach(inp => {
-        const cantidad = parseInt(inp.value) || 0;
-        if (cantidad > 0) {
-          const prod = productos.find(p => p.id == inp.dataset.id);
-          total += cantidad * prod.precio;
-        }
-      });
-      if (envioRadio.checked) {
-        let extra = parseFloat(distanciaExtra.value) || 0;
-        let envioTotal = costoEnvio;
-        if (extra > 1) envioTotal += (Math.ceil(extra - 1)) * 500;
-        total += envioTotal;
-      }
-      totalSpan.textContent = total;
-      btnEnviar.disabled = total === 0;
-      return total;
+  // Enviar pedido WhatsApp
+  document.getElementById('formPedido').addEventListener('submit', e => {
+    e.preventDefault();
+
+    const tel = telCliente.value.trim();
+    const dir = dirCliente.value.trim();
+
+    if (!tel) {
+      alert('Por favor, ingrese su teléfono.');
+      telCliente.focus();
+      return;
     }
 
-    document.addEventListener('input', e => {
-      if (e.target.classList.contains('qty') || e.target === distanciaExtra) calcularTotal();
+    const detalles = [];
+    let hayPedido = false;
+
+    document.querySelectorAll('.qty').forEach(inp => {
+      const cantidad = parseInt(inp.value) || 0;
+      if (cantidad > 0) {
+        hayPedido = true;
+        const prodId = inp.dataset.id;
+        const prod = productos.find(p => p.id == prodId);
+        const aderezoInput = document.querySelector(`[data-aderezo-id="${prodId}"]`);
+        const aderezos = aderezoInput?.value.trim();
+        const conAderezo = aderezos ? ` (${aderezos})` : '';
+        detalles.push(`${cantidad} x ${prod.nombre}${conAderezo}`);
+      }
     });
 
-    actualizarCamposEntrega();
+    if (!hayPedido) {
+      alert('Agregá al menos un producto al pedido.');
+      return;
+    }
 
-    document.getElementById('formPedido').addEventListener('submit', e => {
-      e.preventDefault();
-      const tel = document.getElementById('telCliente').value.trim();
-      const dir = dirCliente.value.trim();
-      const detalles = [];
+    if (envioRadio.checked && dir === '') {
+      alert('Por favor, completá la dirección para envío.');
+      dirCliente.focus();
+      return;
+    }
 
-      document.querySelectorAll('.qty').forEach(inp => {
-        const cantidad = parseInt(inp.value) || 0;
-        if (cantidad > 0) {
-          const prodId = inp.dataset.id;
-          const prod = productos.find(p => p.id == prodId);
-          const aderezoInput = document.querySelector(`[data-aderezo-id="${prodId}"]`);
-          const aderezos = aderezoInput?.value.trim();
-          const conAderezo = aderezos ? ` (${aderezos})` : '';
-          detalles.push(`${cantidad} x ${prod.nombre}${conAderezo}`);
-        }
-      });
+    let mensaje = `Hola! Quiero pedir: ${detalles.join(', ')}.`;
+    if (envioRadio.checked) mensaje += ` Con envío a ${dir}.`;
+    else mensaje += ' Retiro en el local.';
+    mensaje += ` Total $${calcularTotal()}. Mi teléfono: ${tel}.`;
 
-      if (detalles.length === 0) {
-        alert('Agregá al menos un producto al pedido.');
-        return;
-      }
+    // Abrir WhatsApp
+    const url = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
 
-      if (envioRadio.checked && dir === '') {
-        alert('Por favor, completá la dirección para envío.');
-        dirCliente.focus();
-        return;
-      }
+    mostrarTicket(mensaje);
 
-      let mensaje = `Hola! Quiero pedir: ${detalles.join(', ')}.`;
-      if (envioRadio.checked) mensaje += ` Con envío a ${dir}.`;
-      else mensaje += ' Retiro en el local.';
-      mensaje += ` Total $${calcularTotal()}. Mi teléfono: ${tel}.`;
+    setTimeout(() => {
+      if (!document.hasFocus()) return;
+      alert('¡Gracias por elegirnos!\nSi WhatsApp no se abrió automáticamente, tocá este enlace:\n\n' + url);
+    }, 1500);
+  });
 
-      const url = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensaje)}`;
-      window.open(url, '_blank');
-      mostrarTicket(mensaje);
+  // Mostrar ticket
+  function mostrarTicket(mensaje) {
+    const ahora = new Date().toLocaleString();
+    contenidoTicket.textContent = `🧾 Comprobante de pedido\n${mensaje}\nFecha: ${ahora}`;
+    ticketSection.style.display = 'block';
+    ticketSection.scrollIntoView({ behavior: 'smooth' });
+  }
 
-      setTimeout(() => {
-        if (!document.hasFocus()) return;
-        alert('Si WhatsApp no se abrió automáticamente, tocá este enlace:\n\n' + url);
-      }, 1500);
+  // Copiar ticket
+  function copiarTicket() {
+    const texto = contenidoTicket.textContent;
+    navigator.clipboard.writeText(texto).then(() => {
+      alert('Resumen copiado al portapapeles 📋');
     });
+  }
 
-    function mostrarTicket(mensaje) {
-      const ticket = document.getElementById('ticket');
-      const contenido = document.getElementById('contenidoTicket');
-      const ahora = new Date().toLocaleString();
-      contenido.textContent = `🧾 Comprobante de pedido\n${mensaje}\nFecha: ${ahora}`;
-      ticket.style.display = 'block';
-    }
+  // Descargar ticket
+  function descargarTicket() {
+    const contenido = contenidoTicket.textContent;
+    const blob = new Blob([contenido], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'comprobante-pedido.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
-    function copiarTicket() {
-      const texto = document.getElementById('contenidoTicket').textContent;
-      navigator.clipboard.writeText(texto).then(() => {
-        alert('Resumen copiado al portapapeles 📋');
-      });
-    }
-
-    function descargarTicket() {
-      const contenido = document.getElementById('contenidoTicket').textContent;
-      const blob = new Blob([contenido], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'comprobante-pedido.txt';
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-  </script>
+  // Render inicial
+  renderProductos();
+  calcularTotal();
+</script>
 </body>
 </html>
