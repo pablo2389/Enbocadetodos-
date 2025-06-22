@@ -67,19 +67,25 @@
     <form id="formPedido">
       <div id="listaProductos"></div>
 
+      <!-- Cambié checkbox por radio para que sea exclusiva -->
       <label>
-        <input type="checkbox" id="chkEnvio"> Con envío hasta 1 km (+$<span id="precioEnvio"></span>). Más de 1 km: $500 por km adicional
+        <input type="radio" name="tipoEntrega" value="retiro" id="retiro" checked>
+        Retiro en local (sin envío)
+      </label>
+      <label>
+        <input type="radio" name="tipoEntrega" value="envio" id="envio">
+        Con envío hasta 1 km (+$<span id="precioEnvio"></span>). Más de 1 km: $500 por km adicional
       </label>
 
       <label>Distancia estimada en km (solo si es más de 1 km)
-        <input type="number" id="distanciaExtra" min="0" step="0.1" placeholder="Ej: 2">
+        <input type="number" id="distanciaExtra" min="0" step="0.1" placeholder="Ej: 2" disabled>
       </label>
 
       <label>Tu teléfono
         <input type="tel" id="telCliente" required placeholder="2616224435">
       </label>
       <label>Dirección
-        <input type="text" id="dirCliente" required placeholder="Barrio San Javier…">
+        <input type="text" id="dirCliente" placeholder="Barrio San Javier…" disabled>
       </label>
 
       <p class="total">Total: $<span id="txtTotal">0</span></p>
@@ -121,8 +127,10 @@
     ];
 
     const lista = document.getElementById('listaProductos');
-    const chkEnvio = document.getElementById('chkEnvio');
+    const retiroRadio = document.getElementById('retiro');
+    const envioRadio = document.getElementById('envio');
     const distanciaExtra = document.getElementById('distanciaExtra');
+    const dirCliente = document.getElementById('dirCliente');
     const precioEnvioSpan = document.getElementById('precioEnvio');
     const totalSpan = document.getElementById('txtTotal');
     const btnEnviar = document.getElementById('btnEnviar');
@@ -148,6 +156,24 @@
       lista.appendChild(div);
     });
 
+    function actualizarCamposEntrega() {
+      if (envioRadio.checked) {
+        distanciaExtra.disabled = false;
+        dirCliente.disabled = false;
+        dirCliente.required = true;
+      } else {
+        distanciaExtra.disabled = true;
+        distanciaExtra.value = '';
+        dirCliente.disabled = true;
+        dirCliente.value = '';
+        dirCliente.required = false;
+      }
+      calcularTotal();
+    }
+
+    retiroRadio.addEventListener('change', actualizarCamposEntrega);
+    envioRadio.addEventListener('change', actualizarCamposEntrega);
+
     function calcularTotal() {
       let total = 0;
       document.querySelectorAll('.qty').forEach(inp => {
@@ -157,7 +183,7 @@
           total += cantidad * prod.precio;
         }
       });
-      if (chkEnvio.checked) {
+      if (envioRadio.checked) {
         let extra = parseFloat(distanciaExtra.value) || 0;
         let envioTotal = costoEnvio;
         if (extra > 1) envioTotal += (Math.ceil(extra - 1)) * 500;
@@ -171,12 +197,13 @@
     document.addEventListener('input', e => {
       if (e.target.classList.contains('qty') || e.target === distanciaExtra) calcularTotal();
     });
-    chkEnvio.addEventListener('change', calcularTotal);
+
+    actualizarCamposEntrega();
 
     document.getElementById('formPedido').addEventListener('submit', e => {
       e.preventDefault();
       const tel = document.getElementById('telCliente').value.trim();
-      const dir = document.getElementById('dirCliente').value.trim();
+      const dir = dirCliente.value.trim();
       const detalles = [];
 
       document.querySelectorAll('.qty').forEach(inp => {
@@ -196,8 +223,14 @@
         return;
       }
 
+      if (envioRadio.checked && dir === '') {
+        alert('Por favor, completá la dirección para envío.');
+        dirCliente.focus();
+        return;
+      }
+
       let mensaje = `Hola! Quiero pedir: ${detalles.join(', ')}.`;
-      if (chkEnvio.checked) mensaje += ` Con envío a ${dir}.`;
+      if (envioRadio.checked) mensaje += ` Con envío a ${dir}.`;
       else mensaje += ' Retiro en el local.';
       mensaje += ` Total $${calcularTotal()}. Mi teléfono: ${tel}.`;
 
