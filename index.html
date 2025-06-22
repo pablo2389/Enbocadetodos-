@@ -73,26 +73,43 @@
       letter-spacing: 0.5px;
       text-transform: uppercase;
     }
+#navbar {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+#navbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari y Opera */
+}
+
+#navbar button {
+  background: #ffcc00;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  #navbar {
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+  #navbar button {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+}
 
     /* Navbar botones tipo pestaña para filtrar carrusel */
-    .navbar {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1rem;
-      gap: 1rem;
-    }
-    .navbar button {
-      background: #ffcc00;
-      border: none;
-      padding: 0.5rem 1rem;
-      font-weight: bold;
-      font-size: 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-      transition: background-color 0.3s ease;
-    }
-    .navbar button.active,
+       .navbar button.active,
     .navbar button:hover {
       background: #d62828;
       color: white;
