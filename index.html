@@ -3,130 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <title>🍔 Rotisería En Boca de Todos – Guaymallén, Mendoza</title>
+  <title>🍔 Rotisería En Boca de Todos – Guaymallén, Mendoza</title>
   <link rel="icon" type="image/png" href="images/favicon-32x32.png" />
-
   <style>
-    :root{font-family:sans-serif;}
-    body{
-      margin:0;
-      padding:1rem;
-      background:#f7f7f7 url('images/background.jpg') top center no-repeat;
+    :root { font-family: sans-serif; }
+    body {
+      margin: 0;
+      padding: 1rem;
+      background: #f7f7f7 url('images/background.jpg') top center no-repeat;
       background-size: cover;
-      color:#333;
+      color: #333;
     }
-    .wrap{max-width:600px;margin:auto;background:#fff;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.1);padding:1rem;}
-    .header{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin-bottom:1rem;
-      gap:1rem;
-    }
-    /* Imagen banner arriba */
+    .wrap { max-width: 600px; margin: auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,.1); padding: 1rem; }
     .banner-image {
-      width: 100%;
-      max-height: 220px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      display: block;
-      transition: transform 0.3s ease;
-      cursor: pointer;
+      width: 100%; max-height: 220px; object-fit: cover; border-radius: 12px; margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2); transition: transform 0.3s ease; cursor: pointer;
     }
-    .banner-image:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    .banner-image:hover { transform: scale(1.05); box-shadow: 0 6px 12px rgba(0,0,0,0.3); }
+    .header img {
+      height: 100px; width: auto; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease; cursor: pointer;
     }
-    .header img{
-      height: 100px;
-      width: auto;
-      border-radius: 12px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-      cursor: pointer;
+    .header img:hover { transform: scale(1.1); box-shadow: 0 4px 8px rgba(0,0,0,0.3); z-index: 10; }
+    h1 {
+      margin: 0; text-align: center; font-size: 1.8rem; color: #d62828; font-weight: 900;
+      letter-spacing: 0.5px; text-transform: uppercase;
     }
-    .header img:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      z-index: 10;
+    .producto { margin: 1rem 0; border-bottom: 1px solid #eee; padding-bottom: 1rem; }
+    .producto-inner { display: flex; align-items: center; }
+    .producto img {
+      width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-right: 1rem;
+      transition: transform 0.3s ease; cursor: pointer;
     }
-    h1{
-      margin:0;
-      text-align:center;
-      font-size:1.8rem;
-      color:#d62828;
-      font-weight:900;
-      letter-spacing:0.5px;
-      text-transform:uppercase;
+    .producto img:hover { transform: scale(1.1); z-index: 10; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+    .info { flex: 1; }
+    .qty { width: 60px; margin-left: 0.5rem; }
+    label { display: block; margin: 0.75rem 0; }
+    button {
+      background: #ffcc00; color: #000; border: none; padding: 0.8rem 1.5rem;
+      font-size: 1rem; border-radius: 8px; cursor: pointer; font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
-    .producto{
-      margin:1rem 0;
-      border-bottom:1px solid #eee;
-      padding-bottom:1rem;
+    button:disabled { background: #aaa; }
+    .total { font-size: 1.2rem; font-weight: bold; margin-top: 1rem; text-align: right; }
+    .footer {
+      margin-top: 2rem; font-size: 0.9rem; text-align: center; color: #666;
     }
-    .producto-inner{
-      display:flex;
-      align-items:center;
+    .aderezo { margin-top: 0.5rem; }
+    .aderezo input { margin-right: 0.5rem; }
+
+    #ticket {
+      display: none; margin-top: 2rem; background: #fff; padding: 1rem;
+      border: 1px solid #ccc; border-radius: 8px;
     }
-    .producto img{
-      width:80px;
-      height:80px;
-      object-fit:cover;
-      border-radius:8px;
-      margin-right:1rem;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-    .producto img:hover {
-      transform: scale(1.1);
-      z-index: 10;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-    .info{flex:1;}
-    .qty{width:60px;margin-left:0.5rem;}
-    label{display:block;margin:0.75rem 0;}
-    button{
-      background:#ffcc00;
-      color:#000;
-      border:none;
-      padding:0.8rem 1.5rem;
-      font-size:1rem;
-      border-radius:8px;
-      cursor:pointer;
-      font-weight:bold;
-      box-shadow:0 2px 4px rgba(0,0,0,0.2);
-    }
-    button:disabled{
-      background:#aaa;
-    }
-    .total{
-      font-size:1.2rem;
-      font-weight:bold;
-      margin-top:1rem;
-      text-align:right;
-    }
-    .footer{
-      margin-top:2rem;
-      font-size:0.9rem;
-      text-align:center;
-      color:#666;
-    }
-    .aderezo{
-      margin-top:0.5rem;
-    }
-    .aderezo input{
-      margin-right:0.5rem;
-    }
+    #ticket h2 { text-align: center; color: #d62828; }
+    #contenidoTicket { white-space: pre-wrap; font-size: 0.95rem; margin-bottom: 1rem; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="header">
-      <img src="images/imagen body.jpg" alt="Banner" class="banner-image">
-    </div>
-
+    <img src="images/imagen body.jpg" alt="Banner" class="banner-image">
     <h1>Hacé tu pedido</h1>
     <form id="formPedido">
       <div id="listaProductos"></div>
@@ -150,6 +86,14 @@
       <button type="submit" id="btnEnviar" disabled>Enviar por WhatsApp</button>
     </form>
 
+    <!-- 🧾 Ticket -->
+    <div id="ticket">
+      <h2>🧾 Tu comprobante</h2>
+      <pre id="contenidoTicket"></pre>
+      <button onclick="copiarTicket()">📋 Copiar resumen</button>
+      <button onclick="descargarTicket()">⬇️ Descargar .txt</button>
+    </div>
+
     <div class="footer">
       <p><strong>Rotisería "En Boca de Todos"</strong></p>
       <p>📍 Barrio San Javier, Manzana Q, Casa 17 – Mendoza</p>
@@ -163,17 +107,17 @@
     const costoEnvio = 500;
 
     const productos = [
-      { id: 1,  nombre: 'Chesse Burguer',                         precio: 4800, foto: 'images/chesseburguer.jpg' },
-      { id: 2,  nombre: 'Cono de papas',                          precio: 2400, foto: 'images/Cono-papas.jpg' },
-      { id: 3,  nombre: 'Fugazzeta',                              precio: 7800, foto: 'images/fugazzeta.jpg' },
-      { id: 4,  nombre: 'Hamburguesa mediana + guarnición',      precio: 7800, foto: 'images/Hamburgesamediana-guarnicion.jpg' },
-      { id: 5,  nombre: 'Hamburguesa completa',                  precio: 11000, foto: 'images/Hamburguesacompleta.jpg' },
-      { id: 6,  nombre: 'Pancho con poncho',                     precio: 2700, foto: 'images/panchoconponcho.jpg' },
-      { id: 7,  nombre: 'Panchos + lluvia de papas',             precio: 2000, foto: 'images/panchoslluviapapas.jpg' },
-      { id: 8,  nombre: 'Papas chicas',                          precio: 4000, foto: 'images/papas-chicas.jpg' },
-      { id: 9,  nombre: 'Papas a caballo',                       precio: 6000, foto: 'images/papasacaballo.jpg' },
-      { id: 10, nombre: 'Papas grandes',                         precio: 5000, foto: 'images/papasgrandes.jpg' },
-      { id: 11, nombre: 'Pizza especial',                        precio: 7800, foto: 'images/pizza-especial.jpg' }
+      { id: 1, nombre: 'Chesse Burguer', precio: 4800, foto: 'images/chesseburguer.jpg' },
+      { id: 2, nombre: 'Cono de papas', precio: 2400, foto: 'images/Cono-papas.jpg' },
+      { id: 3, nombre: 'Fugazzeta', precio: 7800, foto: 'images/fugazzeta.jpg' },
+      { id: 4, nombre: 'Hamburguesa mediana + guarnición', precio: 7800, foto: 'images/Hamburgesamediana-guarnicion.jpg' },
+      { id: 5, nombre: 'Hamburguesa completa', precio: 11000, foto: 'images/Hamburguesacompleta.jpg' },
+      { id: 6, nombre: 'Pancho con poncho', precio: 2700, foto: 'images/panchoconponcho.jpg' },
+      { id: 7, nombre: 'Panchos + lluvia de papas', precio: 2000, foto: 'images/panchoslluviapapas.jpg' },
+      { id: 8, nombre: 'Papas chicas', precio: 4000, foto: 'images/papas-chicas.jpg' },
+      { id: 9, nombre: 'Papas a caballo', precio: 6000, foto: 'images/papasacaballo.jpg' },
+      { id: 10, nombre: 'Papas grandes', precio: 5000, foto: 'images/papasgrandes.jpg' },
+      { id: 11, nombre: 'Pizza especial', precio: 7800, foto: 'images/pizza-especial.jpg' }
     ];
 
     const lista = document.getElementById('listaProductos');
@@ -233,8 +177,8 @@
       e.preventDefault();
       const tel = document.getElementById('telCliente').value.trim();
       const dir = document.getElementById('dirCliente').value.trim();
-
       const detalles = [];
+
       document.querySelectorAll('.qty').forEach(inp => {
         const cantidad = parseInt(inp.value) || 0;
         if (cantidad > 0) {
@@ -259,12 +203,39 @@
 
       const url = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensaje)}`;
       window.open(url, '_blank');
+      mostrarTicket(mensaje);
 
       setTimeout(() => {
         if (!document.hasFocus()) return;
         alert('Si WhatsApp no se abrió automáticamente, tocá este enlace:\n\n' + url);
       }, 1500);
     });
+
+    function mostrarTicket(mensaje) {
+      const ticket = document.getElementById('ticket');
+      const contenido = document.getElementById('contenidoTicket');
+      const ahora = new Date().toLocaleString();
+      contenido.textContent = `🧾 Comprobante de pedido\n${mensaje}\nFecha: ${ahora}`;
+      ticket.style.display = 'block';
+    }
+
+    function copiarTicket() {
+      const texto = document.getElementById('contenidoTicket').textContent;
+      navigator.clipboard.writeText(texto).then(() => {
+        alert('Resumen copiado al portapapeles 📋');
+      });
+    }
+
+    function descargarTicket() {
+      const contenido = document.getElementById('contenidoTicket').textContent;
+      const blob = new Blob([contenido], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'comprobante-pedido.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
   </script>
 </body>
 </html>
