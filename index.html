@@ -2,142 +2,113 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🍔 Rotisería En Boca de Todos – Guaymallén, Mendoza</title>
   <link rel="icon" type="image/png" href="images/favicon-32x32.png" />
   <style>
-    :root {
-      font-family: sans-serif;
-    }
+    :root { font-family: sans-serif; }
     body {
       margin: 0;
       padding: 1rem;
-      background: url('images/background.jpg') no-repeat center center fixed;
+      background: #f7f7f7 url('images/background.jpg') top center no-repeat;
       background-size: cover;
       color: #333;
       position: relative;
+      min-height: 100vh;
       overflow-x: hidden;
     }
-    /* RGB suave sobre el fondo, con blend para que se vea la imagen */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none;
-      background: linear-gradient(270deg,
-        #ff0000, #00ff00, #0000ff, #ff0000);
-      background-size: 600% 600%;
-      animation: rgbShift 20s ease infinite;
-      mix-blend-mode: screen;
-      opacity: 0.15;
-      z-index: -1;
-    }
-    @keyframes rgbShift {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
-
     .wrap {
-      max-width: 700px;
+      max-width: 600px;
       margin: auto;
-      background: rgba(255 255 255 / 0.95);
+      background: rgba(255 255 255 / 0.9);
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,.1);
       padding: 1rem;
+      position: relative;
+      z-index: 10;
     }
-
-  .banner-image {
-  width: 100%;
-  height: auto;
-  object-fit: contain; /* Cambiado para que la imagen se vea completa */
-  border-radius: 12px;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease;
-  cursor: pointer;
-  background: #fff; /* Fondo blanco para evitar transparencias */
-}
-
-    .banner-image:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    .banner-image {
+      width: 100%; max-height: 220px; object-fit: cover; border-radius: 12px; margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2); transition: transform 0.3s ease; cursor: pointer;
     }
-
+    .banner-image:hover { transform: scale(1.05); box-shadow: 0 6px 12px rgba(0,0,0,0.3); }
     h1 {
-      margin: 0 0 1rem;
-      text-align: center;
-      font-size: 1.8rem;
-      color: #d62828;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+      margin: 0; text-align: center; font-size: 1.8rem; color: #d62828; font-weight: 900;
+      letter-spacing: 0.5px; text-transform: uppercase;
     }
-#navbar {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
-}
-#navbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari y Opera */
-}
 
-#navbar button {
-  background: #ffcc00;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-@media (max-width: 480px) {
-  #navbar {
-    gap: 0.5rem;
-    padding: 0 0.5rem;
-  }
-  #navbar button {
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-  }
-}
-
-    /* Navbar botones tipo pestaña para filtrar carrusel */
-       .navbar button.active,
-    .navbar button:hover {
+    /* Navbar estilo */
+    #navbar {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox */
+      scroll-behavior: smooth;
+    }
+    #navbar::-webkit-scrollbar {
+      display: none; /* Chrome, Safari y Opera */
+    }
+    #navbar button {
+      background: #ffcc00;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      flex-shrink: 0;
+      white-space: nowrap;
+      transition: background 0.3s, color 0.3s;
+    }
+    #navbar button.active,
+    #navbar button:hover {
       background: #d62828;
       color: white;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
+    @media (max-width: 480px) {
+      #navbar {
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+      }
+      #navbar button {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+      }
+    }
 
-    /* Carrusel */
-    .carousel {
+    /* Carrusel horizontal */
+    #listaProductos {
       display: flex;
       overflow-x: auto;
-      scroll-behavior: smooth;
       gap: 1rem;
       padding-bottom: 1rem;
+      scrollbar-width: thin;
+      scrollbar-color: #d62828 #f7f7f7;
     }
-    .carousel::-webkit-scrollbar {
+    #listaProductos::-webkit-scrollbar {
       height: 8px;
     }
-    .carousel::-webkit-scrollbar-thumb {
-      background: #d62828;
-      border-radius: 4px;
-    }
-    .producto {
-      flex: 0 0 180px;
-      background: white;
+    #listaProductos::-webkit-scrollbar-track {
+      background: #f7f7f7;
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      padding: 0.5rem;
-      user-select: none;
+    }
+    #listaProductos::-webkit-scrollbar-thumb {
+      background-color: #d62828;
+      border-radius: 10px;
+    }
+
+    /* Cada producto en carrusel */
+    .producto {
+      min-width: 220px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 0.75rem;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      flex-shrink: 0;
     }
     .producto-inner {
       display: flex;
@@ -145,8 +116,8 @@
       align-items: center;
     }
     .producto img {
-      width: 160px;
-      height: 140px;
+      width: 180px;
+      height: 130px;
       object-fit: cover;
       border-radius: 8px;
       margin-bottom: 0.5rem;
@@ -155,101 +126,97 @@
     }
     .producto img:hover {
       transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
       z-index: 10;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
     .info {
       text-align: center;
       margin-bottom: 0.5rem;
-      font-weight: 600;
-      font-size: 1rem;
+      font-weight: bold;
     }
     .qty {
       width: 60px;
+      margin: 0 auto;
+      display: block;
       margin-bottom: 0.5rem;
+    }
+    .aderezo label {
+      font-weight: normal;
+      font-size: 0.9rem;
+      display: block;
       text-align: center;
-      font-weight: 700;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      padding: 0.25rem;
     }
     .aderezo input {
-      width: 100%;
+      width: 90%;
+      margin-top: 0.3rem;
+      padding: 0.3rem 0.5rem;
       border-radius: 6px;
       border: 1px solid #ccc;
-      padding: 0.25rem;
       font-size: 0.9rem;
     }
 
     label {
-      font-size: 0.9rem;
-      margin-bottom: 0.25rem;
       display: block;
+      margin: 0.75rem 0;
     }
-
-    button#btnEnviar {
-      background: #ffcc00;
-      color: #000;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
+    button {
+      background: #ffcc00; color: #000; border: none; padding: 0.8rem 1.5rem;
+      font-size: 1rem; border-radius: 8px; cursor: pointer; font-weight: bold;
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-      width: 100%;
-      margin-top: 1rem;
+      transition: background 0.3s ease;
     }
-    button#btnEnviar:disabled {
+    button:disabled {
       background: #aaa;
       cursor: not-allowed;
     }
-
     .total {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-top: 1rem;
-      text-align: right;
+      font-size: 1.2rem; font-weight: bold; margin-top: 1rem; text-align: right;
     }
-
     .footer {
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      text-align: center;
-      color: #666;
+      margin-top: 2rem; font-size: 0.9rem; text-align: center; color: #666;
     }
 
-    /* Ticket */
     #ticket {
-      display: none;
-      margin-top: 2rem;
-      background: #fff;
-      padding: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+      display: none; margin-top: 2rem; background: #fff; padding: 1rem;
+      border: 1px solid #ccc; border-radius: 8px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
     #ticket h2 {
       text-align: center;
       color: #d62828;
+      margin-bottom: 1rem;
     }
     #contenidoTicket {
       white-space: pre-wrap;
       font-size: 0.95rem;
       margin-bottom: 1rem;
-    }
-    #ticket button {
-      margin-right: 0.5rem;
-      margin-top: 0.5rem;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+      max-height: 300px;
+      overflow-y: auto;
     }
 
-    /* Form inputs */
-    input[type="number"], input[type="text"], input[type="tel"] {
-      width: 100%;
-      padding: 0.4rem 0.5rem;
-      font-size: 1rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
+    /* RGB animado fondo */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      background: linear-gradient(270deg, #ff0000, #00ff00, #0000ff);
+      background-size: 600% 600%;
+      animation: BackgroundRGB 20s ease infinite;
+      opacity: 0.2;
+      pointer-events: none;
+    }
+    @keyframes BackgroundRGB {
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
     }
   </style>
 </head>
@@ -258,49 +225,47 @@
     <img src="images/imagen body.jpg" alt="Banner" class="banner-image" />
     <h1>Hacé tu pedido</h1>
 
-    <!-- Navbar para filtrar -->
-    <div class="navbar">
-      <button class="filter-btn active" data-category="todos">Todos</button>
-      <button class="filter-btn" data-category="hamburguesas">Hamburguesas</button>
-      <button class="filter-btn" data-category="papas">Papas</button>
-      <button class="filter-btn" data-category="panchos">Panchos</button>
-      <button class="filter-btn" data-category="pizzas">Pizzas</button>
-    </div>
-
-    <!-- Carrusel de productos -->
-    <div class="carousel" id="carouselProductos"></div>
+    <nav id="navbar" class="navbar">
+      <button data-categoria="todos" class="active">Todos</button>
+      <button data-categoria="hamburguesa">Hamburguesas</button>
+      <button data-categoria="papas">Papas</button>
+      <button data-categoria="panchos">Panchos</button>
+      <button data-categoria="pizza">Pizzas</button>
+    </nav>
 
     <form id="formPedido">
+
+      <div id="listaProductos"></div>
+
       <label>
-        <input type="radio" name="tipoEntrega" value="retiro" id="retiro" checked />
+        <input type="radio" name="tipoEntrega" value="retiro" id="retiro" checked>
         Retiro en local (sin envío)
       </label>
       <label>
-        <input type="radio" name="tipoEntrega" value="envio" id="envio" />
+        <input type="radio" name="tipoEntrega" value="envio" id="envio">
         Con envío hasta 1 km (+$<span id="precioEnvio"></span>). Más de 1 km: $500 por km adicional
       </label>
 
       <label>Distancia estimada en km (solo si es más de 1 km)
-        <input type="number" id="distanciaExtra" min="0" step="0.1" placeholder="Ej: 2" disabled />
+        <input type="number" id="distanciaExtra" min="0" step="0.1" placeholder="Ej: 2" disabled>
       </label>
 
       <label>Tu teléfono
-        <input type="tel" id="telCliente" required placeholder="2616224435" />
+        <input type="tel" id="telCliente" required placeholder="2616224435">
       </label>
       <label>Dirección
-        <input type="text" id="dirCliente" placeholder="Barrio San Javier…" disabled />
+        <input type="text" id="dirCliente" placeholder="Barrio San Javier…" disabled>
       </label>
 
       <p class="total">Total: $<span id="txtTotal">0</span></p>
       <button type="submit" id="btnEnviar" disabled>Enviar por WhatsApp</button>
     </form>
 
-    <!-- 🧾 Ticket -->
     <div id="ticket">
       <h2>🧾 Tu comprobante</h2>
       <pre id="contenidoTicket"></pre>
       <button onclick="copiarTicket()">📋 Copiar resumen</button>
-      <button onclick="descargarTicketPDF()">⬇️ Descargar PDF</button>
+      <button onclick="descargarTicket()">⬇️ Descargar .txt</button>
     </div>
 
     <div class="footer">
@@ -311,73 +276,72 @@
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
     const numeroWhatsApp = '5492616224435';
     const costoEnvio = 500;
 
-    // Productos con categoría para filtrar
     const productos = [
-      { id: 1, nombre: 'Chesse Burguer', precio: 4800, foto: 'images/chesseburguer.jpg', categoria: 'hamburguesas' },
-      { id: 2, nombre: 'Cono de papas', precio: 2400, foto: 'images/Cono-papas.jpg', categoria: 'papas' },
-      { id: 3, nombre: 'Fugazzeta', precio: 7800, foto: 'images/fugazzeta.jpg', categoria: 'pizzas' },
-      { id: 4, nombre: 'Hamburguesa mediana + guarnición', precio: 7800, foto: 'images/Hamburgesamediana-guarnicion.jpg', categoria: 'hamburguesas' },
-      { id: 5, nombre: 'Hamburguesa completa', precio: 11000, foto: 'images/Hamburguesacompleta.jpg', categoria: 'hamburguesas' },
+      { id: 1, nombre: 'Chesse Burguer', precio: 4800, foto: 'images/chesseburguer.jpg', categoria: 'hamburguesa' },
+      { id: 2, nombre: 'Cono de papas', precio: 2400, foto: 'images/cono-papas.jpg', categoria: 'papas' },
+      { id: 3, nombre: 'Fugazzeta', precio: 7800, foto: 'images/fugazzeta.jpg', categoria: 'pizza' },
+      { id: 4, nombre: 'Hamburguesa mediana + guarnición', precio: 7800, foto: 'images/Hamburgesamediana-guarnicion.jpg', categoria: 'hamburguesa' },
+      { id: 5, nombre: 'Hamburguesa completa', precio: 11000, foto: 'images/hamburguesacompleta.jpg', categoria: 'hamburguesa' },
       { id: 6, nombre: 'Pancho con poncho', precio: 2700, foto: 'images/panchoconponcho.jpg', categoria: 'panchos' },
       { id: 7, nombre: 'Panchos + lluvia de papas', precio: 2000, foto: 'images/panchoslluviapapas.jpg', categoria: 'panchos' },
       { id: 8, nombre: 'Papas chicas', precio: 4000, foto: 'images/papas-chicas.jpg', categoria: 'papas' },
       { id: 9, nombre: 'Papas a caballo', precio: 6000, foto: 'images/papasacaballo.jpg', categoria: 'papas' },
       { id: 10, nombre: 'Papas grandes', precio: 5000, foto: 'images/papasgrandes.jpg', categoria: 'papas' },
-      { id: 11, nombre: 'Pizza especial', precio: 7800, foto: 'images/pizza-especial.jpg', categoria: 'pizzas' }
+      { id: 11, nombre: 'Pizza especial', precio: 7800, foto: 'images/pizza-especial.jpg', categoria: 'pizza' }
     ];
 
-    const precioEnvioSpan = document.getElementById('precioEnvio');
-    precioEnvioSpan.textContent = costoEnvio;
-
-    const carousel = document.getElementById('carouselProductos');
+    const lista = document.getElementById('listaProductos');
     const retiroRadio = document.getElementById('retiro');
     const envioRadio = document.getElementById('envio');
     const distanciaExtra = document.getElementById('distanciaExtra');
     const dirCliente = document.getElementById('dirCliente');
+    const precioEnvioSpan = document.getElementById('precioEnvio');
     const totalSpan = document.getElementById('txtTotal');
     const btnEnviar = document.getElementById('btnEnviar');
 
-    // Render productos en carrusel, con inputs qty y aderezos
-    function renderProductos(filtro = 'todos') {
-      carousel.innerHTML = '';
-      const prodsFiltrados = filtro === 'todos' ? productos : productos.filter(p => p.categoria === filtro);
-      prodsFiltrados.forEach(p => {
-        const div = document.createElement('div');
-        div.className = 'producto';
-        div.dataset.id = p.id;
-        div.innerHTML = `
-          <div class="producto-inner">
-            <img src="${p.foto}" alt="${p.nombre}">
-            <div class="info">
-              <strong>${p.nombre}</strong><br>$${p.precio}
+    precioEnvioSpan.textContent = costoEnvio;
+
+    // Renderizar productos según categoría (carrusel)
+    function renderProductos(categoria = 'todos') {
+      lista.innerHTML = '';
+      productos.forEach(p => {
+        if (categoria === 'todos' || p.categoria === categoria) {
+          const div = document.createElement('div');
+          div.className = 'producto';
+          div.dataset.categoria = p.categoria;
+          div.innerHTML = `
+            <div class="producto-inner">
+              <img src="${p.foto}" alt="${p.nombre}">
+              <div class="info">
+                <strong>${p.nombre}</strong><br>$${p.precio}
+              </div>
+              <input type="number" min="0" value="0" data-id="${p.id}" class="qty">
             </div>
-            <input type="number" min="0" value="0" data-id="${p.id}" class="qty" />
-            <label class="aderezo">Aderezos:
-              <input type="text" placeholder="Ej: mayonesa, ketchup" data-aderezo-id="${p.id}" />
-            </label>
-          </div>
-        `;
-        carousel.appendChild(div);
+            <div class="aderezo">
+              <label>Aderezos:
+                <input type="text" placeholder="Ej: mayonesa, ketchup" data-aderezo-id="${p.id}">
+              </label>
+            </div>
+          `;
+          lista.appendChild(div);
+        }
+      });
+      actualizarEventosCantidad();
+      calcularTotal();
+    }
+
+    // Actualizar eventos de cantidad para inputs qty
+    function actualizarEventosCantidad() {
+      document.querySelectorAll('.qty').forEach(input => {
+        input.addEventListener('input', calcularTotal);
       });
     }
 
-    renderProductos();
-
-    // Filtros navbar
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderProductos(btn.dataset.category);
-        calcularTotal();
-      });
-    });
-
+    // Actualizar campos entrega
     function actualizarCamposEntrega() {
       if (envioRadio.checked) {
         distanciaExtra.disabled = false;
@@ -395,7 +359,9 @@
 
     retiroRadio.addEventListener('change', actualizarCamposEntrega);
     envioRadio.addEventListener('change', actualizarCamposEntrega);
+    distanciaExtra.addEventListener('input', calcularTotal);
 
+    // Calcular total
     function calcularTotal() {
       let total = 0;
       document.querySelectorAll('.qty').forEach(inp => {
@@ -416,13 +382,26 @@
       return total;
     }
 
-    // Delegado para inputs qty y distancia
-    document.body.addEventListener('input', e => {
-      if (e.target.classList.contains('qty') || e.target === distanciaExtra) calcularTotal();
+    // Filtrado navbar
+    const navbar = document.getElementById('navbar');
+    navbar.addEventListener('click', e => {
+      if (e.target.tagName === 'BUTTON') {
+        const cat = e.target.dataset.categoria;
+
+        // Cambiar clase active
+        document.querySelectorAll('#navbar button').forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
+
+        // Renderizar productos filtrados
+        renderProductos(cat);
+      }
     });
 
+    // Inicializar
     actualizarCamposEntrega();
+    renderProductos();
 
+    // Enviar pedido WhatsApp y mostrar ticket
     document.getElementById('formPedido').addEventListener('submit', e => {
       e.preventDefault();
       const tel = document.getElementById('telCliente').value.trim();
@@ -471,8 +450,9 @@
       const ticket = document.getElementById('ticket');
       const contenido = document.getElementById('contenidoTicket');
       const ahora = new Date().toLocaleString();
-      contenido.textContent = `🧾 Comprobante de pedido\n${mensaje}\nFecha: ${ahora}\n\n¡Gracias por elegirnos!`;
+      contenido.textContent = `🧾 Comprobante de pedido\n\n${mensaje}\n\nFecha: ${ahora}\n\nGracias por elegirnos!`;
       ticket.style.display = 'block';
+      ticket.scrollIntoView({ behavior: 'smooth' });
     }
 
     function copiarTicket() {
@@ -482,39 +462,15 @@
       });
     }
 
-    // Descargar comprobante PDF con estilo y logo
-    async function descargarTicketPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-
-      const logoImg = new Image();
-      logoImg.src = 'images/favicon-32x32.png'; // Usa tu logo o cambia path
-      await new Promise(resolve => {
-        logoImg.onload = resolve;
-      });
-
-      // Fondo blanco
-      doc.setFillColor(255, 255, 255);
-      doc.rect(0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight(), 'F');
-
-      // Logo
-      doc.addImage(logoImg, 'PNG', 15, 10, 20, 20);
-
-      doc.setFontSize(18);
-      doc.setTextColor('#d62828');
-      doc.text('Rotisería "En Boca de Todos"', 40, 20);
-
-      doc.setFontSize(14);
-      doc.setTextColor(0);
-      const texto = document.getElementById('contenidoTicket').textContent;
-      const lineas = doc.splitTextToSize(texto, 170);
-      doc.text(lineas, 15, 45);
-
-      doc.setFontSize(12);
-      doc.setTextColor(100);
-      doc.text('¡Gracias por tu compra!', 105, doc.internal.pageSize.getHeight() - 20, { align: 'center' });
-
-      doc.save('comprobante-pedido.pdf');
+    function descargarTicket() {
+      const contenido = document.getElementById('contenidoTicket').textContent;
+      const blob = new Blob([contenido], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'comprobante-pedido.txt';
+      a.click();
+      URL.revokeObjectURL(url);
     }
   </script>
 </body>
