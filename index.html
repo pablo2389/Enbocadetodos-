@@ -14,43 +14,124 @@
       color:#333;
     }
     .wrap{max-width:600px;margin:auto;background:#fff;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.1);padding:1rem;}
-    .header{display:flex;align-items:center;justify-content:center;margin-bottom:1rem;gap:1rem;}
-    .header img{height:100px;width:auto;border-radius:12px;box-shadow:0 2px 4px rgba(0,0,0,0.1);}
-    h1{margin:0;text-align:center;font-size:1.8rem;color:#d62828;font-weight:900;letter-spacing:0.5px;text-transform:uppercase;}
-    .producto{margin:1rem 0;border-bottom:1px solid #eee;padding-bottom:1rem;}
-    .producto-inner{display:flex;align-items:center;}
-    .producto img{width:80px;height:80px;object-fit:cover;border-radius:8px;margin-right:1rem;}
+    .header{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:1rem;
+      gap:1rem;
+    }
+    /* Imagen banner arriba */
+    .banner-image {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      display: block;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .banner-image:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    .header img{
+      height: 100px;
+      width: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .header img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
+    h1{
+      margin:0;
+      text-align:center;
+      font-size:1.8rem;
+      color:#d62828;
+      font-weight:900;
+      letter-spacing:0.5px;
+      text-transform:uppercase;
+    }
+    .producto{
+      margin:1rem 0;
+      border-bottom:1px solid #eee;
+      padding-bottom:1rem;
+    }
+    .producto-inner{
+      display:flex;
+      align-items:center;
+    }
+    .producto img{
+      width:80px;
+      height:80px;
+      object-fit:cover;
+      border-radius:8px;
+      margin-right:1rem;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .producto img:hover {
+      transform: scale(1.1);
+      z-index: 10;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
     .info{flex:1;}
     .qty{width:60px;margin-left:0.5rem;}
     label{display:block;margin:0.75rem 0;}
-    button{background:#ffcc00;color:#000;border:none;padding:0.8rem 1.5rem;font-size:1rem;border-radius:8px;cursor:pointer;font-weight:bold;box-shadow:0 2px 4px rgba(0,0,0,0.2);}
-    button:disabled{background:#aaa;}
-    .total{font-size:1.2rem;font-weight:bold;margin-top:1rem;text-align:right;}
-    .footer{margin-top:2rem;font-size:0.9rem;text-align:center;color:#666;}
-    .aderezo{margin-top:0.5rem;}
-    .aderezo input{margin-right:0.5rem;}
-    #costoEnvioDetalle {
-      font-weight: bold;
-      color: #d62828;
-      margin-top: -0.5rem;
-      margin-bottom: 1rem;
-      display: none;
+    button{
+      background:#ffcc00;
+      color:#000;
+      border:none;
+      padding:0.8rem 1.5rem;
+      font-size:1rem;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+      box-shadow:0 2px 4px rgba(0,0,0,0.2);
+    }
+    button:disabled{
+      background:#aaa;
+    }
+    .total{
+      font-size:1.2rem;
+      font-weight:bold;
+      margin-top:1rem;
+      text-align:right;
+    }
+    .footer{
+      margin-top:2rem;
+      font-size:0.9rem;
+      text-align:center;
+      color:#666;
+    }
+    .aderezo{
+      margin-top:0.5rem;
+    }
+    .aderezo input{
+      margin-right:0.5rem;
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="header">
-      <img src="images/imagen body.jpg" alt="Logo">
-      <h1>Hacé tu pedido</h1>
+      <img src="images/imagen body.jpg" alt="Banner" class="banner-image">
     </div>
+
+    <h1>Hacé tu pedido</h1>
     <form id="formPedido">
       <div id="listaProductos"></div>
 
       <label>
         <input type="checkbox" id="chkEnvio"> Con envío hasta 1 km (+$<span id="precioEnvio"></span>). Más de 1 km: $500 por km adicional
       </label>
-      <p id="costoEnvioDetalle"></p>
 
       <label>Distancia estimada en km (solo si es más de 1 km)
         <input type="number" id="distanciaExtra" min="0" step="0.1" placeholder="Ej: 2">
@@ -99,7 +180,6 @@
     const precioEnvioSpan = document.getElementById('precioEnvio');
     const totalSpan = document.getElementById('txtTotal');
     const btnEnviar = document.getElementById('btnEnviar');
-    const costoEnvioDetalle = document.getElementById('costoEnvioDetalle');
     precioEnvioSpan.textContent = costoEnvio;
 
     productos.forEach(p => {
@@ -142,45 +222,15 @@
       return total;
     }
 
-    function actualizarCostoEnvio() {
-      if (chkEnvio.checked) {
-        let extra = parseFloat(distanciaExtra.value) || 0;
-        let envioTotal = costoEnvio;
-        if (extra > 1) envioTotal += (Math.ceil(extra - 1)) * 500;
-        costoEnvioDetalle.textContent = `Costo envío: $${envioTotal}`;
-        costoEnvioDetalle.style.display = 'block';
-      } else {
-        costoEnvioDetalle.style.display = 'none';
-      }
-    }
-
     document.addEventListener('input', e => {
-      if (e.target.classList.contains('qty') || e.target === distanciaExtra) {
-        calcularTotal();
-        actualizarCostoEnvio();
-      }
+      if (e.target.classList.contains('qty') || e.target === distanciaExtra) calcularTotal();
     });
-    chkEnvio.addEventListener('change', () => {
-      calcularTotal();
-      actualizarCostoEnvio();
-    });
-
-    // Llamar una vez para que quede sincronizado al cargar
-    actualizarCostoEnvio();
+    chkEnvio.addEventListener('change', calcularTotal);
 
     document.getElementById('formPedido').addEventListener('submit', e => {
       e.preventDefault();
       const tel = document.getElementById('telCliente').value.trim();
       const dir = document.getElementById('dirCliente').value.trim();
-
-      if (chkEnvio.checked && dir.length < 3) {
-        alert('Por favor, completá la dirección para el envío.');
-        return;
-      }
-      if (tel.length < 6) {
-        alert('Por favor, ingresá un teléfono válido.');
-        return;
-      }
 
       const detalles = [];
       document.querySelectorAll('.qty').forEach(inp => {
@@ -197,10 +247,6 @@
 
       if (detalles.length === 0) {
         alert('Agregá al menos un producto al pedido.');
-        return;
-      }
-
-      if (!confirm('¿Querés enviar este pedido por WhatsApp?')) {
         return;
       }
 
