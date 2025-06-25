@@ -1,9 +1,18 @@
-<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🍔 Rotisería En Boca de Todos – Guaymallén, Mendoza</title>
+  <meta name="description" content="Hacé tu pedido en línea a Rotisería En Boca de Todos en Guaymallén, Mendoza. Hamburguesas, papas, pizzas y más con envío o retiro en el local.">
+  <meta name="keywords" content="rotisería, comida para llevar, pedidos online, Guaymallén, Mendoza, hamburguesas, papas, pizzas, delivery, en boca de todos">
+  <meta name="author" content="Rotisería En Boca de Todos">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://enbocadetod0s.netlify.app/" />
+  <meta property="og:title" content="Rotisería En Boca de Todos – Guaymallén, Mendoza" />
+  <meta property="og:description" content="Pedí online hamburguesas, papas, pizzas y más en Guaymallén. Envío o retiro en la rotisería En Boca de Todos." />
+  <meta property="og:image" content="https://enbocadetod0s.netlify.app/images/imagen%20body.jpg" />
+  <meta property="og:url" content="https://enbocadetod0s.netlify.app/" />
+  <meta property="og:type" content="website" />
   <link rel="icon" type="image/png" href="images/favicon-32x32.png" />
   <style>
     :root { font-family: sans-serif; }
@@ -38,85 +47,20 @@
     }
 
     /* Navbar estilo */
- /* Navbar estilo */
-#navbar {
-  display: flex;
-  justify-content: flex-start; /* scroll natural */
-  gap: 1rem;
-  margin: 1rem 0;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
-  scroll-behavior: smooth;
-  padding: 0 0.5rem;
-  white-space: nowrap;
-}
-#navbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari y Opera */
-}
-#navbar button {
-  background: #ffcc00;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  flex-shrink: 0;
-  white-space: nowrap;
-  transition: background 0.3s, color 0.3s;
-  min-width: max-content;
-}
-#navbar button.active,
-#navbar button:hover {
-  background: #d62828;
-  color: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
+    #navbar {
+      display: none; /* Oculta el navbar */
+    }
 
-/* Responsive navbar */
-
-/* Móvil: hasta 600px */
-@media (max-width: 600px) {
-  #navbar {
-    gap: 0.4rem;
-    padding: 0 0.25rem;
-  }
-  #navbar button {
-    padding: 0.9rem 1.2rem;
-    font-size: 1rem;
-    min-width: auto;
-  }
-}
-
-/* Tablet: 601px a 900px */
-@media (min-width: 601px) and (max-width: 900px) {
-  #navbar {
-    gap: 0.75rem;
-    padding: 0 0.5rem;
-  }
-  #navbar button {
-    padding: 0.85rem 1.4rem;
-    font-size: 1.05rem;
-    min-width: max-content;
-  }
-}
-
-/* Escritorio: más de 900px */
-@media (min-width: 901px) {
-  #navbar {
-    gap: 1rem;
-    padding: 0 0.5rem;
-  }
-  #navbar button {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    min-width: max-content;
-  }
-}
-
-
-    /* Carrusel horizontal */
-    #listaProductos {
+    /* Agrupación por categoría */
+    .categoria-titulo {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #d62828;
+      margin: 1.5rem 0 0.5rem 0.2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .categoria-productos {
       display: flex;
       overflow-x: auto;
       gap: 1rem;
@@ -124,19 +68,14 @@
       scrollbar-width: thin;
       scrollbar-color: #d62828 #f7f7f7;
     }
-    #listaProductos::-webkit-scrollbar {
+    .categoria-productos::-webkit-scrollbar {
       height: 8px;
     }
-    #listaProductos::-webkit-scrollbar-track {
-      background: #f7f7f7;
-      border-radius: 10px;
-    }
-    #listaProductos::-webkit-scrollbar-thumb {
+    .categoria-productos::-webkit-scrollbar-thumb {
       background-color: #d62828;
       border-radius: 10px;
     }
 
-    /* Cada producto en carrusel */
     .producto {
       min-width: 220px;
       border: 1px solid #eee;
@@ -254,6 +193,26 @@
       50%{background-position:100% 50%;}
       100%{background-position:0% 50%;}
     }
+    @media (max-width: 600px) {
+  .wrap {
+    padding: 0.5rem;
+  }
+  .categoria-titulo {
+    font-size: 1rem;
+    margin: 1rem 0 0.4rem 0.1rem;
+  }
+  .producto {
+    min-width: 160px;
+    padding: 0.5rem;
+  }
+  .producto img {
+    width: 120px;
+    height: 80px;
+  }
+  button, .qty, input[type="tel"], input[type="text"], input[type="number"] {
+    font-size: 1rem;
+  }
+}
   </style>
 </head>
 <body>
@@ -330,6 +289,14 @@
       { id: 11, nombre: 'Pizza especial', precio: 7800, foto: 'images/pizza-especial.jpg', categoria: 'pizza' }
     ];
 
+    // Definir las categorías y su nombre para mostrar
+    const categorias = [
+      { key: 'hamburguesa', nombre: 'Hamburguesas' },
+      { key: 'papas', nombre: 'Papas' },
+      { key: 'panchos', nombre: 'Panchos' },
+      { key: 'pizza', nombre: 'Pizzas' }
+    ];
+
     const lista = document.getElementById('listaProductos');
     const retiroRadio = document.getElementById('retiro');
     const envioRadio = document.getElementById('envio');
@@ -341,43 +308,56 @@
 
     precioEnvioSpan.textContent = costoEnvio;
 
-    // Renderizar productos según categoría (carrusel)
-    function renderProductos(categoria = 'todos') {
+    // Renderizar productos agrupados por categoría
+    function renderProductos() {
       lista.innerHTML = '';
-      productos.forEach(p => {
-        if (categoria === 'todos' || p.categoria === categoria) {
-          const div = document.createElement('div');
-          div.className = 'producto';
-          div.dataset.categoria = p.categoria;
-          div.innerHTML = `
-            <div class="producto-inner">
-              <img src="${p.foto}" alt="${p.nombre}">
-              <div class="info">
-                <strong>${p.nombre}</strong><br>$${p.precio}
+      categorias.forEach(cat => {
+        const productosCat = productos.filter(p => p.categoria === cat.key);
+        if (productosCat.length > 0) {
+          // Título de la categoría
+          const titulo = document.createElement('div');
+          titulo.className = 'categoria-titulo';
+          titulo.textContent = cat.nombre;
+          lista.appendChild(titulo);
+
+          // Contenedor horizontal de productos
+          const contenedor = document.createElement('div');
+          contenedor.className = 'categoria-productos';
+
+          productosCat.forEach(p => {
+            const div = document.createElement('div');
+            div.className = 'producto';
+            div.dataset.categoria = p.categoria;
+            div.innerHTML = `
+              <div class="producto-inner">
+                <img src="${p.foto}" alt="${p.nombre}">
+                <div class="info">
+                  <strong>${p.nombre}</strong><br>$${p.precio}
+                </div>
+                <input type="number" min="0" value="0" data-id="${p.id}" class="qty">
               </div>
-              <input type="number" min="0" value="0" data-id="${p.id}" class="qty">
-            </div>
-            <div class="aderezo">
-              <label>Aderezos:
-                <input type="text" placeholder="Ej: mayonesa, ketchup" data-aderezo-id="${p.id}">
-              </label>
-            </div>
-          `;
-          lista.appendChild(div);
+              <div class="aderezo">
+                <label>Aderezos:
+                  <input type="text" placeholder="Ej: mayonesa, ketchup" data-aderezo-id="${p.id}">
+                </label>
+              </div>
+            `;
+            contenedor.appendChild(div);
+          });
+
+          lista.appendChild(contenedor);
         }
       });
       actualizarEventosCantidad();
       calcularTotal();
     }
 
-    // Actualizar eventos de cantidad para inputs qty
     function actualizarEventosCantidad() {
       document.querySelectorAll('.qty').forEach(input => {
         input.addEventListener('input', calcularTotal);
       });
     }
 
-    // Actualizar campos entrega
     function actualizarCamposEntrega() {
       if (envioRadio.checked) {
         distanciaExtra.disabled = false;
@@ -397,7 +377,6 @@
     envioRadio.addEventListener('change', actualizarCamposEntrega);
     distanciaExtra.addEventListener('input', calcularTotal);
 
-    // Calcular total
     function calcularTotal() {
       let total = 0;
       document.querySelectorAll('.qty').forEach(inp => {
@@ -418,26 +397,9 @@
       return total;
     }
 
-    // Filtrado navbar
-    const navbar = document.getElementById('navbar');
-    navbar.addEventListener('click', e => {
-      if (e.target.tagName === 'BUTTON') {
-        const cat = e.target.dataset.categoria;
-
-        // Cambiar clase active
-        document.querySelectorAll('#navbar button').forEach(btn => btn.classList.remove('active'));
-        e.target.classList.add('active');
-
-        // Renderizar productos filtrados
-        renderProductos(cat);
-      }
-    });
-
-    // Inicializar
     actualizarCamposEntrega();
     renderProductos();
 
-    // Enviar pedido WhatsApp y mostrar ticket
     document.getElementById('formPedido').addEventListener('submit', e => {
       e.preventDefault();
       const tel = document.getElementById('telCliente').value.trim();
