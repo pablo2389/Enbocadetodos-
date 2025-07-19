@@ -20,7 +20,8 @@
   <link rel="icon" type="image/png" href="images/favicon-32x32.png" />
   
   <!-- Manifest PWA -->
-  <link rel="manifest" href="manifest.json" />
+ <link rel="manifest" href="/manifest.json" />
+
   
   <style>
     /* Usá tu CSS completo tal como lo pusiste */
@@ -462,17 +463,19 @@
     }
 
     // Registrar Service Worker para PWA
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(reg => {
-            console.log('Service Worker registrado:', reg.scope);
-          })
-          .catch(err => {
-            console.log('Error al registrar Service Worker:', err);
-          });
+   if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+navigator.serviceWorker.register('/service-worker.js')
+
+      .then(reg => {
+        console.log('Service Worker registrado:', reg.scope);
+      })
+      .catch(err => {
+        console.log('Error al registrar Service Worker:', err);
       });
-    }
+  });
+}
+
   </script>
 </body>
 </html>
