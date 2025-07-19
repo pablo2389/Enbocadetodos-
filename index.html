@@ -5,26 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>En Boca de Todos – Pedidos</title>
   <style>
-    :root { font-family: sans-serif; }
+    :root { 
+      font-family: sans-serif; 
+    }
     body {
       margin: 0;
-      padding: 1rem;
-      background: #f7f7f7 url('images/background.jpg') top center no-repeat;
+      padding: 0; /* Sin padding para que el overlay cubra todo */
+      background: url('/enbocadetodos/images/background.jpg') top center no-repeat;
       background-size: cover;
       color: #333;
       position: relative;
       min-height: 100vh;
       overflow-x: hidden;
     }
+   #overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  z-index: 0;
+
+  animation: bajarOverlay 60s linear infinite;
+}
+
+@keyframes bajarOverlay {
+  0% {
+    transform: translateY(-100vh);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
     .wrap {
       max-width: 600px;
-      margin: auto;
-      background: rgba(255 255 255 / 0.9);
+      margin: 1rem auto 2rem auto; /* margen arriba y abajo */
+      background: rgba(242, 204, 91, 0.9);
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,.1);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       padding: 1rem;
       position: relative;
-      z-index: 10;
+      z-index: 10; /* encima del overlay */
     }
     .header {
       display: flex;
@@ -49,35 +73,40 @@
       margin: 0;
       text-align: center;
       font-size: 1.8rem;
-      color: #d62828;
+      color: #0c0c02;
       font-weight: 900;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.10px;
       text-transform: uppercase;
     }
 
-    /* Categorías horizontales con scroll */
     .categoria-titulo {
       font-size: 1.2rem;
       font-weight: bold;
-      color: #d62828;
-      margin: 1.5rem 0 0.5rem 0.2rem;
+      color: #0c0c03;
+      margin: 1.5rem 0 0.5rem 0;
       text-transform: uppercase;
       letter-spacing: 1px;
+      text-align: center;
+      border-bottom: 2px solid #0c0c03;
+      padding-bottom: 0.2rem;
+      display: block;
     }
+
     .categoria-productos {
       display: flex;
       overflow-x: auto;
       gap: 1rem;
+      text-align: center;
       padding-bottom: 1rem;
-      scrollbar-width: thin;
-      scrollbar-color: #d62828 #f7f7f7;
     }
-    .categoria-productos::-webkit-scrollbar {
-      height: 8px;
-    }
-    .categoria-productos::-webkit-scrollbar-thumb {
-      background-color: #d62828;
-      border-radius: 10px;
+
+    .mi-div {
+      background:
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url('tuimagen.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
     }
 
     .producto {
@@ -85,18 +114,13 @@
       border: 1px solid #eee;
       border-radius: 10px;
       padding: 0.75rem;
-      background: #fff;
+      background: #bd4646;
+      text-align: center;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-    .producto-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
     }
     .producto img {
       width: 180px;
@@ -119,30 +143,22 @@
     }
     .qty {
       width: 60px;
-      margin: 0 auto 0.5rem auto;
-      display: block;
-    }
-    .aderezo label {
-      font-weight: normal;
-      font-size: 0.9rem;
-      display: block;
-      text-align: center;
+      margin-bottom: 0.5rem;
     }
     .aderezo input {
       width: 90%;
-      margin-top: 0.3rem;
       padding: 0.3rem 0.5rem;
       border-radius: 6px;
       border: 1px solid #ccc;
       font-size: 0.9rem;
     }
 
-    label {
-      display: block;
-      margin: 0.75rem 0;
+    label { 
+      display: block; 
+      margin: 0.75rem 0; 
     }
     button {
-      background: #ffcc00; 
+      background: #14ec46; 
       color: #000; 
       border: none; 
       padding: 0.8rem 1.5rem;
@@ -155,7 +171,7 @@
       width: 100%;
     }
     button:disabled {
-      background: #aaa;
+      background: #c5ecbd;
       cursor: not-allowed;
     }
     .total {
@@ -170,52 +186,14 @@
       text-align: center; 
       color: #666;
     }
-
-    /* RGB animado fondo */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 0;
-      background: linear-gradient(270deg, #ff0000, #00ff00, #0000ff);
-      background-size: 600% 600%;
-      animation: BackgroundRGB 20s ease infinite;
-      opacity: 0.2;
-      pointer-events: none;
-    }
-    @keyframes BackgroundRGB {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .wrap {
-        padding: 0.5rem;
-      }
-      .categoria-titulo {
-        font-size: 1rem;
-        margin: 1rem 0 0.4rem 0.1rem;
-      }
-      .producto {
-        min-width: 160px;
-        padding: 0.5rem;
-      }
-      .producto img {
-        width: 120px;
-        height: 80px;
-      }
-      button, .qty, input[type="tel"], input[type="text"], input[type="number"] {
-        font-size: 1rem;
-      }
-    }
   </style>
 </head>
 <body>
+  <div id="overlay"></div>
+
   <div class="wrap">
     <div class="header">
-      <img src="images/imagen body.jpg" alt="Logo" />
+      <img src="enbocadetodos/images/imagen body.jpg" alt="Logo" />
       <h1>Hacé tu pedido</h1>
     </div>
 
@@ -226,11 +204,10 @@
         <input type="radio" name="tipoEntrega" value="retiro" id="retiro" checked />
         Retiro en el local (sin envío)
       </label>
-   <label>
-  <input type="radio" name="tipoEntrega" value="envio" id="envio">
-  Con envío (recargo por distancia)
-</label>
-
+      <label>
+        <input type="radio" name="tipoEntrega" value="envio" id="envio" />
+        Con envío (recargo por distancia)
+      </label>
 
       <label>
         Distancia estimada en km (solo si es más de 1 km)
@@ -254,8 +231,8 @@
     <div class="footer">
       <p><strong>Rotisería "En Boca de Todos"</strong></p>
       <p>📍 Barrio San Javier, Manzana Q, Casa 17 – Mendoza</p>
-      <p>📞 Tels: 261 622‑4435 / 261 634‑5099 / 261 503‑8515</p>
-      <p>🌐 <a href="https://enbocadetodos.netlify.app" target="_blank" rel="noopener noreferrer">enbocadetod0s.netlify.app</a></p>
+      <p>📞 Tels: 261 622‑4435 / 261 634‑5099 / 261 503‑8515</p>
+      <p>🌐 <a href="https://enbocadetod0s.netlify.app" target="_blank" rel="noopener noreferrer">enbocadetod0s.netlify.app</a></p>
     </div>
   </div>
 
@@ -263,19 +240,18 @@
     const numeroWhatsApp = '5492616224435';
     const costoEnvioBase = 500;
 
-    // Productos con categoría para scroll horizontal
     const productos = [
-      { id: 1, nombre: 'Chesse Burguer', precio: 4800, foto: 'images/chesseburguer.jpg', categoria: 'hamburguesa' },
-      { id: 2, nombre: 'Cono de papas', precio: 2400, foto: 'images/cono-papas.jpg', categoria: 'papas' },
-      { id: 3, nombre: 'Fugazzeta', precio: 7800, foto: 'images/fugazzeta.jpg', categoria: 'pizza' },
-      { id: 4, nombre: 'Hamburguesa mediana + guarnición', precio: 7800, foto: 'images/Hamburgesamediana-guarnicion.jpg', categoria: 'hamburguesa' },
-      { id: 5, nombre: 'Hamburguesa completa', precio: 11000, foto: 'images/hamburguesacompleta.jpg', categoria: 'hamburguesa' },
-      { id: 6, nombre: 'Pancho con poncho', precio: 2700, foto: 'images/panchoconponcho.jpg', categoria: 'panchos' },
-      { id: 7, nombre: 'Panchos + lluvia de papas', precio: 2000, foto: 'images/panchoslluviapapas.jpg', categoria: 'panchos' },
-      { id: 8, nombre: 'Papas chicas', precio: 4000, foto: 'images/papas-chicas.jpg', categoria: 'papas' },
-      { id: 9, nombre: 'Papas a caballo', precio: 6000, foto: 'images/papasacaballo.jpg', categoria: 'papas' },
-      { id: 10, nombre: 'Papas grandes', precio: 5000, foto: 'images/papasgrandes.jpg', categoria: 'papas' },
-      { id: 11, nombre: 'Pizza especial', precio: 7800, foto: 'images/pizza-especial.jpg', categoria: 'pizza' }
+      { id: 1, nombre: 'Chesse Burguer', precio: 4800, foto: 'enbocadetodos/images/chesseburguer.jpg', categoria: 'hamburguesa' },
+      { id: 2, nombre: 'Cono de papas', precio: 2400, foto: 'enbocadetodos/images/cono-papas.jpg', categoria: 'papas' },
+      { id: 3, nombre: 'Fugazzeta', precio: 7800, foto: 'enbocadetodos/images/fugazzeta.jpg', categoria: 'pizza' },
+      { id: 4, nombre: 'Hamburguesa mediana + guarnición', precio: 7800, foto: 'enbocadetodos/images/Hamburgesamediana-guarnicion.jpg', categoria: 'hamburguesa' },
+      { id: 5, nombre: 'Hamburguesa completa', precio: 11000, foto: 'enbocadetodos/images/hamburguesacompleta.jpg', categoria: 'hamburguesa' },
+      { id: 6, nombre: 'Pancho con poncho', precio: 2700, foto: 'enbocadetodos/images/panchoconponcho.jpg', categoria: 'panchos' },
+      { id: 7, nombre: 'Panchos + lluvia de papas', precio: 2000, foto: '/enbocadetodos/images/panchoslluviapapas.jpg', categoria: 'panchos' },
+      { id: 8, nombre: 'Papas chicas', precio: 4000, foto: 'enbocadetodos/images/papas-chicas.jpg', categoria: 'papas' },
+      { id: 9, nombre: 'Papas a caballo', precio: 6000, foto: 'enbocadetodos/images/papasacaballo.jpg', categoria: 'papas' },
+      { id: 10, nombre: 'Papas grandes', precio: 5000, foto: 'enbocadetodos/images/papasgrandes.jpg', categoria: 'papas' },
+      { id: 11, nombre: 'Pizza especial', precio: 7800, foto: 'enbocadetodos/images/pizza-especial.jpg', categoria: 'pizza' }
     ];
 
     const categorias = [
@@ -298,32 +274,23 @@
       categorias.forEach(cat => {
         const productosCat = productos.filter(p => p.categoria === cat.key);
         if (productosCat.length > 0) {
-          // Título categoría
           const titulo = document.createElement('div');
           titulo.className = 'categoria-titulo';
           titulo.textContent = cat.nombre;
           lista.appendChild(titulo);
 
-          // Contenedor scroll horizontal
           const contenedor = document.createElement('div');
           contenedor.className = 'categoria-productos';
 
           productosCat.forEach(p => {
             const div = document.createElement('div');
             div.className = 'producto';
-            div.dataset.categoria = p.categoria;
             div.innerHTML = `
-              <div class="producto-inner">
-                <img src="${p.foto}" alt="${p.nombre}">
-                <div class="info">
-                  <strong>${p.nombre}</strong><br>$${p.precio}
-                </div>
-                <input type="number" min="0" value="0" data-id="${p.id}" class="qty">
-              </div>
+              <img src="${p.foto}" alt="${p.nombre}">
+              <div class="info">${p.nombre}<br>$${p.precio}</div>
+              <input type="number" min="0" value="0" data-id="${p.id}" class="qty">
               <div class="aderezo">
-                <label>Aderezos:
-                  <input type="text" placeholder="Ej: mayonesa, ketchup" data-aderezo-id="${p.id}">
-                </label>
+                <input type="text" placeholder="Aderezos (opcional)" data-aderezo-id="${p.id}">
               </div>
             `;
             contenedor.appendChild(div);
@@ -333,13 +300,8 @@
         }
       });
 
-      agregarEventosCantidades();
-      calcularTotal();
-    }
-
-    function agregarEventosCantidades() {
-      document.querySelectorAll('.qty').forEach(input => {
-        input.addEventListener('input', calcularTotal);
+      document.querySelectorAll('.qty').forEach(inp => {
+        inp.addEventListener('input', calcularTotal);
       });
     }
 
@@ -353,14 +315,8 @@
       }
     }
 
-    envioRadio.addEventListener('change', () => {
-      toggleEnvioFields();
-      calcularTotal();
-    });
-    retiroRadio.addEventListener('change', () => {
-      toggleEnvioFields();
-      calcularTotal();
-    });
+    envioRadio.addEventListener('change', () => { toggleEnvioFields(); calcularTotal(); });
+    retiroRadio.addEventListener('change', () => { toggleEnvioFields(); calcularTotal(); });
 
     function calcularTotal() {
       let total = 0;
@@ -384,10 +340,6 @@
       return total;
     }
 
-    document.addEventListener('input', e => {
-      if (e.target.classList.contains('qty') || e.target === distanciaExtra) calcularTotal();
-    });
-
     document.getElementById('formPedido').addEventListener('submit', e => {
       e.preventDefault();
       const tel = document.getElementById('telCliente').value.trim();
@@ -405,18 +357,8 @@
         }
       });
 
-      if (detalles.length === 0) {
-        alert('Por favor, seleccioná al menos un producto.');
-        return;
-      }
-      if (!tel) {
-        alert('Por favor, ingresá tu teléfono.');
-        return;
-      }
-      if (envioRadio.checked && !dir) {
-        alert('Por favor, ingresá la dirección para envío.');
-        return;
-      }
+      if (!tel) { alert('Por favor, ingresá tu teléfono.'); return; }
+      if (envioRadio.checked && !dir) { alert('Por favor, ingresá la dirección para envío.'); return; }
 
       let mensaje = `Hola! Quiero pedir: ${detalles.join(', ')}.`;
       if (envioRadio.checked) mensaje += ` Con envío a ${dir}.`;
@@ -427,9 +369,17 @@
       window.open(url, '_blank');
     });
 
-    // Inicializamos todo al cargar
     renderProductos();
     toggleEnvioFields();
+
+    window.addEventListener('load', () => {
+      const overlay = document.getElementById('overlay');
+      overlay.style.top = '0'; // Mostrar overlay al cargar la página
+
+      overlay.addEventListener('click', () => {
+        overlay.style.top = '-100%'; // Ocultar overlay al hacer click
+      });
+    });
   </script>
 </body>
 </html>
