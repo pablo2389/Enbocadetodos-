@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>En Boca de Todos – Pedidos</title>
+  <style>
+    :root { font-family: sans-serif; }
+    body {
+      margin: 0;
+      padding: 1rem;
+      background: #f7f7f7 url('images/background.jpg') top center no-repeat;
+      background-size: cover;
+      color: #333;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .wrap {
+      max-width: 600px;
+      margin: auto;
+      background: rgba(255 255 255 / 0.9);
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.1);
+      padding: 1rem;
+      position: relative;
+      z-index: 10;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+    .header img {
+      height: 100px;
+      width: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .header img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    h1 {
+      margin: 0;
+      text-align: center;
+      font-size: 1.8rem;
+      color: #d62828;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* Categorías horizontales con scroll */
+    .categoria-titulo {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #d62828;
+      margin: 1.5rem 0 0.5rem 0.2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .categoria-productos {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      scrollbar-width: thin;
+      scrollbar-color: #d62828 #f7f7f7;
+    }
+    .categoria-productos::-webkit-scrollbar {
+      height: 8px;
+    }
+    .categoria-productos::-webkit-scrollbar-thumb {
+      background-color: #d62828;
+      border-radius: 10px;
+    }
+
+    .producto {
+      min-width: 220px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 0.75rem;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .producto-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .producto img {
+      width: 180px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .producto img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+    .info {
+      text-align: center;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    .qty {
+      width: 60px;
+      margin: 0 auto 0.5rem auto;
+      display: block;
+    }
+    .aderezo label {
+      font-weight: normal;
+      font-size: 0.9rem;
+      display: block;
+      text-align: center;
+    }
+    .aderezo input {
+      width: 90%;
+      margin-top: 0.3rem;
+      padding: 0.3rem 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+    }
+
+    label {
+      display: block;
+      margin: 0.75rem 0;
+    }
+    button {
+      background: #ffcc00; 
+      color: #000; 
+      border: none; 
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+      width: 100%;
+    }
+    button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+    .total {
+      font-size: 1.2rem; 
+      font-weight: bold; 
+      margin-top: 1rem; 
+      text-align: right;
+    }
+    .footer {
+      margin-top: 2rem; 
+      font-size: 0.9rem; 
+      text-align: center; 
+      color: #666;
+    }
+
+    /* RGB animado fondo */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      background: linear-gradient(270deg, #ff0000, #00ff00, #0000ff);
+      background-size: 600% 600%;
+      animation: BackgroundRGB 20s ease infinite;
+      opacity: 0.2;
+      pointer-events: none;
+    }
+    @keyframes BackgroundRGB {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .wrap {
+        padding: 0.5rem;
+      }
+      .categoria-titulo {
+        font-size: 1rem;
+        margin: 1rem 0 0.4rem 0.1rem;
+      }
+      .producto {
+        min-width: 160px;
+        padding: 0.5rem;
+      }
+      .producto img {
+        width: 120px;
+        height: 80px;
+      }
+      button, .qty, input[type="tel"], input[type="text"], input[type="number"] {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <img src="images/imagen body.jpg" alt="Logo" />
+      <h1>Hacé tu pedido</h1>
+    </div>
+
+    <form id="formPedido">
+      <div id="listaProductos"></div>
+
+      <label>
+        <input type="radio" name="tipoEntrega" value="retiro" id="retiro" checked />
+        Retiro en el local (sin envío)
+      </label>
+   <label>
+  <input type="radio" name="tipoEntrega" value="envio" id="envio">
+  Con envío (recargo por distancia)
+</label>
+
+
+      <label>
+        Distancia estimada en km (solo si es más de 1 km)
+        <input type="number" id="distanciaExtra" min="0" step="0.1" placeholder="Ej: 2" disabled />
+      </label>
+
+      <label>
+        Tu teléfono
+        <input type="tel" id="telCliente" required placeholder="2616224435" />
+      </label>
+
+      <label>
+        Dirección
+        <input type="text" id="dirCliente" placeholder="Barrio San Javier…" disabled />
+      </label>
+
+      <p class="total">Total: $<span id="txtTotal">0</span></p>
+      <button type="submit" id="btnEnviar" disabled>Enviar por WhatsApp</button>
+    </form>
+
+    <div class="footer">
+      <p><strong>Rotisería "En Boca de Todos"</strong></p>
+      <p>📍 Barrio San Javier, Manzana Q, Casa 17 – Mendoza</p>
+      <p>📞 Tels: 261 622‑4435 / 261 634‑5099 / 261 503‑8515</p>
+      <p>🌐 <a href="https://enbocadetodos.netlify.app" target="_blank" rel="noopener noreferrer">enbocadetod0s.netlify.app</a></p>
+    </div>
+  </div>
+
+  <script>
+    const numeroWhatsApp = '5492616224435';
+    const costoEnvioBase = 500;
+
+    // Productos con categoría para scroll horizontal
+    const productos = [
+      { id: 1, nombre: 'Chesse Burguer', precio: 4800, foto: 'images/chesseburguer.jpg', categoria: 'hamburguesa' },
+      { id: 2, nombre: 'Cono de papas', precio: 2400, foto: 'images/cono-papas.jpg', categoria: 'papas' },
+      { id: 3, nombre: 'Fugazzeta', precio: 7800, foto: 'images/fugazzeta.jpg', categoria: 'pizza' },
+      { id: 4, nombre: 'Hamburguesa mediana + guarnición', precio: 7800, foto: 'images/Hamburgesamediana-guarnicion.jpg', categoria: 'hamburguesa' },
+      { id: 5, nombre: 'Hamburguesa completa', precio: 11000, foto: 'images/hamburguesacompleta.jpg', categoria: 'hamburguesa' },
+      { id: 6, nombre: 'Pancho con poncho', precio: 2700, foto: 'images/panchoconponcho.jpg', categoria: 'panchos' },
+      { id: 7, nombre: 'Panchos + lluvia de papas', precio: 2000, foto: 'images/panchoslluviapapas.jpg', categoria: 'panchos' },
+      { id: 8, nombre: 'Papas chicas', precio: 4000, foto: 'images/papas-chicas.jpg', categoria: 'papas' },
+      { id: 9, nombre: 'Papas a caballo', precio: 6000, foto: 'images/papasacaballo.jpg', categoria: 'papas' },
+      { id: 10, nombre: 'Papas grandes', precio: 5000, foto: 'images/papasgrandes.jpg', categoria: 'papas' },
+      { id: 11, nombre: 'Pizza especial', precio: 7800, foto: 'images/pizza-especial.jpg', categoria: 'pizza' }
+    ];
+
+    const categorias = [
+      { key: 'hamburguesa', nombre: 'Hamburguesas' },
+      { key: 'papas', nombre: 'Papas' },
+      { key: 'panchos', nombre: 'Panchos' },
+      { key: 'pizza', nombre: 'Pizzas' }
+    ];
+
+    const lista = document.getElementById('listaProductos');
+    const envioRadio = document.getElementById('envio');
+    const retiroRadio = document.getElementById('retiro');
+    const distanciaExtra = document.getElementById('distanciaExtra');
+    const dirCliente = document.getElementById('dirCliente');
+    const totalSpan = document.getElementById('txtTotal');
+    const btnEnviar = document.getElementById('btnEnviar');
+
+    function renderProductos() {
+      lista.innerHTML = '';
+      categorias.forEach(cat => {
+        const productosCat = productos.filter(p => p.categoria === cat.key);
+        if (productosCat.length > 0) {
+          // Título categoría
+          const titulo = document.createElement('div');
+          titulo.className = 'categoria-titulo';
+          titulo.textContent = cat.nombre;
+          lista.appendChild(titulo);
+
+          // Contenedor scroll horizontal
+          const contenedor = document.createElement('div');
+          contenedor.className = 'categoria-productos';
+
+          productosCat.forEach(p => {
+            const div = document.createElement('div');
+            div.className = 'producto';
+            div.dataset.categoria = p.categoria;
+            div.innerHTML = `
+              <div class="producto-inner">
+                <img src="${p.foto}" alt="${p.nombre}">
+                <div class="info">
+                  <strong>${p.nombre}</strong><br>$${p.precio}
+                </div>
+                <input type="number" min="0" value="0" data-id="${p.id}" class="qty">
+              </div>
+              <div class="aderezo">
+                <label>Aderezos:
+                  <input type="text" placeholder="Ej: mayonesa, ketchup" data-aderezo-id="${p.id}">
+                </label>
+              </div>
+            `;
+            contenedor.appendChild(div);
+          });
+
+          lista.appendChild(contenedor);
+        }
+      });
+
+      agregarEventosCantidades();
+      calcularTotal();
+    }
+
+    function agregarEventosCantidades() {
+      document.querySelectorAll('.qty').forEach(input => {
+        input.addEventListener('input', calcularTotal);
+      });
+    }
+
+    function toggleEnvioFields() {
+      const envioSeleccionado = envioRadio.checked;
+      distanciaExtra.disabled = !envioSeleccionado;
+      dirCliente.disabled = !envioSeleccionado;
+      if (!envioSeleccionado) {
+        distanciaExtra.value = '';
+        dirCliente.value = '';
+      }
+    }
+
+    envioRadio.addEventListener('change', () => {
+      toggleEnvioFields();
+      calcularTotal();
+    });
+    retiroRadio.addEventListener('change', () => {
+      toggleEnvioFields();
+      calcularTotal();
+    });
+
+    function calcularTotal() {
+      let total = 0;
+      document.querySelectorAll('.qty').forEach(inp => {
+        const cantidad = parseInt(inp.value) || 0;
+        if (cantidad > 0) {
+          const prod = productos.find(p => p.id == inp.dataset.id);
+          total += cantidad * prod.precio;
+        }
+      });
+
+      if (envioRadio.checked) {
+        let extra = parseFloat(distanciaExtra.value) || 0;
+        let envioTotal = costoEnvioBase;
+        if (extra > 1) envioTotal += (Math.ceil(extra - 1)) * 500;
+        total += envioTotal;
+      }
+
+      totalSpan.textContent = total;
+      btnEnviar.disabled = total === 0;
+      return total;
+    }
+
+    document.addEventListener('input', e => {
+      if (e.target.classList.contains('qty') || e.target === distanciaExtra) calcularTotal();
+    });
+
+    document.getElementById('formPedido').addEventListener('submit', e => {
+      e.preventDefault();
+      const tel = document.getElementById('telCliente').value.trim();
+      const dir = dirCliente.value.trim();
+
+      const detalles = [];
+      document.querySelectorAll('.qty').forEach(inp => {
+        const cantidad = parseInt(inp.value) || 0;
+        if (cantidad > 0) {
+          const prod = productos.find(p => p.id == inp.dataset.id);
+          const aderezoInput = document.querySelector(`[data-aderezo-id="${prod.id}"]`);
+          const aderezos = aderezoInput?.value.trim();
+          const conAderezo = aderezos ? ` (${aderezos})` : '';
+          detalles.push(`${cantidad} x ${prod.nombre}${conAderezo}`);
+        }
+      });
+
+      if (detalles.length === 0) {
+        alert('Por favor, seleccioná al menos un producto.');
+        return;
+      }
+      if (!tel) {
+        alert('Por favor, ingresá tu teléfono.');
+        return;
+      }
+      if (envioRadio.checked && !dir) {
+        alert('Por favor, ingresá la dirección para envío.');
+        return;
+      }
+
+      let mensaje = `Hola! Quiero pedir: ${detalles.join(', ')}.`;
+      if (envioRadio.checked) mensaje += ` Con envío a ${dir}.`;
+      else mensaje += ' Retiro en el local.';
+      mensaje += ` Total $${calcularTotal()}. Mi teléfono: ${tel}.`;
+
+      const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+    });
+
+    // Inicializamos todo al cargar
+    renderProductos();
+    toggleEnvioFields();
+  </script>
+</body>
+</html>
