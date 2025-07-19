@@ -2,7 +2,7 @@
   "id": "/enbocadetodos/",
   "name": "Rotisería En Boca de Todos",
   "short_name": "En Boca de Todos",
-  "start_url": "/",
+    "start_url": "/enbocadetodos/",
   "display": "standalone",
   "background_color": "#f7f7f7",
   "theme_color": "#d62828",

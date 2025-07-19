@@ -1,2 +1,4 @@
-/*
-  Content-Security-Policy: default-src 'self'; style-src 'self' https://www.gstatic.com; img-src 'self' data: https:;
+/enbocadetodos/*
+  Service-Worker-Allowed: /enbocadetodos/
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Security-Policy: default-src 'self' https:; style-src 'self' 'unsafe-inline' https:; script-src 'self' https:;
