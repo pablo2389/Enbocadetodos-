@@ -237,9 +237,10 @@
         Retiro en local (sin envío)
       </label>
       <label>
-        <input type="radio" name="tipoEntrega" value="envio" id="envio">
-        Con envío hasta 1 km (+$<span id="precioEnvio"></span>). Más de 1 km: $500 por km adicional
-      </label>
+  <input type="radio" name="tipoEntrega" value="envio" id="envio">
+  Con envío (aplica costo adicional)
+</label>
+
 
       <label>Distancia estimada en km (solo si es más de 1 km)
         <input type="number" id="distanciaExtra" min="0" step="0.1" placeholder="Ej: 2" disabled>
@@ -272,8 +273,10 @@
   </div>
 
   <script>
-    const numeroWhatsApp = '5492616224435';
-    const costoEnvio = 500;
+   const numeroWhatsApp = '5492616224435';
+
+
+    const costoEnvio = 1000;
 
     const productos = [
       { id: 1, nombre: 'Chesse Burguer', precio: 4800, foto: 'images/chesseburguer.jpg', categoria: 'hamburguesa' },
@@ -306,7 +309,7 @@
     const totalSpan = document.getElementById('txtTotal');
     const btnEnviar = document.getElementById('btnEnviar');
 
-    precioEnvioSpan.textContent = costoEnvio;
+
 
     // Renderizar productos agrupados por categoría
     function renderProductos() {
