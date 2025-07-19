@@ -1,23 +1,23 @@
 const CACHE_NAME = 'enbocadetodos-cache-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/styles.css', // Si tienes css externo, si no podés sacarlo
-  'images/imagen%20body.jpg',  // recomendado URL encode espacios
-  'images/chesseburguer.jpg',
-  'images/cono-papas.jpg',
-  'images/fugazzeta.jpg',
-  'images/Hamburgesamediana-guarnicion.jpg',
-  'images/hamburguesacompleta.jpg',
-  'images/panchoconponcho.jpg',
-  'images/panchoslluviapapas.jpg',
-  'images/papas-chicas.jpg',
-  'images/papasacaballo.jpg',
-  'images/papasgrandes.jpg',
-  'images/pizza-especial.jpg',
-  'images/favicon-32x32.png',
-  'images/favicon-192x192.png'
+  './',
+  './index.html',
+  './manifest.json',
+  './styles.css', // si no usás este archivo, podés sacarlo
+  './images/imagen%20body.jpg',
+  './images/chesseburguer.jpg',
+  './images/cono-papas.jpg',
+  './images/fugazzeta.jpg',
+  './images/Hamburgesamediana-guarnicion.jpg',
+  './images/hamburguesacompleta.jpg',
+  './images/panchoconponcho.jpg',
+  './images/panchoslluviapapas.jpg',
+  './images/papas-chicas.jpg',
+  './images/papasacaballo.jpg',
+  './images/papasgrandes.jpg',
+  './images/pizza-especial.jpg',
+  './images/favicon-32x32.png',
+  './images/favicon-192x192.png'
 ];
 
 self.addEventListener('install', event => {
