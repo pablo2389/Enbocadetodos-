@@ -1,20 +1,29 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>🍔 Rotisería En Boca de Todos – Guaymallén, Mendoza</title>
-  <meta name="description" content="Hacé tu pedido en línea a Rotisería En Boca de Todos en Guaymallén, Mendoza. Hamburguesas, papas, pizzas y más con envío o retiro en el local.">
-  <meta name="keywords" content="rotisería, comida para llevar, pedidos online, Guaymallén, Mendoza, hamburguesas, papas, pizzas, delivery, en boca de todos">
-  <meta name="author" content="Rotisería En Boca de Todos">
-  <meta name="robots" content="index, follow">
+  
+  <meta name="description" content="Hacé tu pedido en línea a Rotisería En Boca de Todos en Guaymallén, Mendoza. Hamburguesas, papas, pizzas y más con envío o retiro en el local." />
+  <meta name="keywords" content="rotisería, comida para llevar, pedidos online, Guaymallén, Mendoza, hamburguesas, papas, pizzas, delivery, en boca de todos" />
+  <meta name="author" content="Rotisería En Boca de Todos" />
+  <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://enbocadetod0s.netlify.app/" />
+  
   <meta property="og:title" content="Rotisería En Boca de Todos – Guaymallén, Mendoza" />
   <meta property="og:description" content="Pedí online hamburguesas, papas, pizzas y más en Guaymallén. Envío o retiro en la rotisería En Boca de Todos." />
   <meta property="og:image" content="https://enbocadetod0s.netlify.app/images/imagen%20body.jpg" />
   <meta property="og:url" content="https://enbocadetod0s.netlify.app/" />
   <meta property="og:type" content="website" />
+  
   <link rel="icon" type="image/png" href="images/favicon-32x32.png" />
+  
+  <!-- Manifest PWA -->
+  <link rel="manifest" href="manifest.json" />
+  
   <style>
+    /* Usá tu CSS completo tal como lo pusiste */
     :root { font-family: sans-serif; }
     body {
       margin: 0;
@@ -45,13 +54,9 @@
       margin: 0; text-align: center; font-size: 1.8rem; color: #d62828; font-weight: 900;
       letter-spacing: 0.5px; text-transform: uppercase;
     }
-
-    /* Navbar estilo */
     #navbar {
-      display: none; /* Oculta el navbar */
+      display: none; /* navbar oculto como pediste */
     }
-
-    /* Agrupación por categoría */
     .categoria-titulo {
       font-size: 1.2rem;
       font-weight: bold;
@@ -75,7 +80,6 @@
       background-color: #d62828;
       border-radius: 10px;
     }
-
     .producto {
       min-width: 220px;
       border: 1px solid #eee;
@@ -129,7 +133,6 @@
       border: 1px solid #ccc;
       font-size: 0.9rem;
     }
-
     label {
       display: block;
       margin: 0.75rem 0;
@@ -150,7 +153,6 @@
     .footer {
       margin-top: 2rem; font-size: 0.9rem; text-align: center; color: #666;
     }
-
     #ticket {
       display: none; margin-top: 2rem; background: #fff; padding: 1rem;
       border: 1px solid #ccc; border-radius: 8px;
@@ -175,7 +177,6 @@
       max-height: 300px;
       overflow-y: auto;
     }
-
     /* RGB animado fondo */
     body::before {
       content: "";
@@ -194,25 +195,25 @@
       100%{background-position:0% 50%;}
     }
     @media (max-width: 600px) {
-  .wrap {
-    padding: 0.5rem;
-  }
-  .categoria-titulo {
-    font-size: 1rem;
-    margin: 1rem 0 0.4rem 0.1rem;
-  }
-  .producto {
-    min-width: 160px;
-    padding: 0.5rem;
-  }
-  .producto img {
-    width: 120px;
-    height: 80px;
-  }
-  button, .qty, input[type="tel"], input[type="text"], input[type="number"] {
-    font-size: 1rem;
-  }
-}
+      .wrap {
+        padding: 0.5rem;
+      }
+      .categoria-titulo {
+        font-size: 1rem;
+        margin: 1rem 0 0.4rem 0.1rem;
+      }
+      .producto {
+        min-width: 160px;
+        padding: 0.5rem;
+      }
+      .producto img {
+        width: 120px;
+        height: 80px;
+      }
+      button, .qty, input[type="tel"], input[type="text"], input[type="number"] {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -221,11 +222,7 @@
     <h1>Hacé tu pedido</h1>
 
     <nav id="navbar" class="navbar">
-      <button data-categoria="todos" class="active">Todos</button>
-      <button data-categoria="hamburguesa">Hamburguesas</button>
-      <button data-categoria="papas">Papas</button>
-      <button data-categoria="panchos">Panchos</button>
-      <button data-categoria="pizza">Pizzas</button>
+      <!-- navbar oculto, no usado -->
     </nav>
 
     <form id="formPedido">
@@ -237,10 +234,9 @@
         Retiro en local (sin envío)
       </label>
       <label>
-  <input type="radio" name="tipoEntrega" value="envio" id="envio">
-  Con envío (aplica costo adicional)
-</label>
-
+        <input type="radio" name="tipoEntrega" value="envio" id="envio">
+        Con envío (aplica costo adicional)
+      </label>
 
       <label>Distancia estimada en km (solo si es más de 1 km)
         <input type="number" id="distanciaExtra" min="0" step="0.1" placeholder="Ej: 2" disabled>
@@ -268,14 +264,12 @@
       <p><strong>Rotisería "En Boca de Todos"</strong></p>
       <p>📍 Barrio San Javier, Manzana Q, Casa 17 – Mendoza</p>
       <p>📞 Tels: 261 622‑4435 / 261 634‑5099 / 261 503‑8515</p>
-      <p>🌐 <a href="https://enbocadetod0s.netlify.app" target="_blank">enbocadetod0s.netlify.app</a></p>
+      <p>🌐 <a href="https://enbocadetod0s.netlify.app" target="_blank" rel="noopener">enbocadetod0s.netlify.app</a></p>
     </div>
   </div>
 
   <script>
-   const numeroWhatsApp = '5492616224435';
-
-
+    const numeroWhatsApp = '5492616224435';
     const costoEnvio = 1000;
 
     const productos = [
@@ -292,7 +286,6 @@
       { id: 11, nombre: 'Pizza especial', precio: 7800, foto: 'images/pizza-especial.jpg', categoria: 'pizza' }
     ];
 
-    // Definir las categorías y su nombre para mostrar
     const categorias = [
       { key: 'hamburguesa', nombre: 'Hamburguesas' },
       { key: 'papas', nombre: 'Papas' },
@@ -305,25 +298,19 @@
     const envioRadio = document.getElementById('envio');
     const distanciaExtra = document.getElementById('distanciaExtra');
     const dirCliente = document.getElementById('dirCliente');
-    const precioEnvioSpan = document.getElementById('precioEnvio');
     const totalSpan = document.getElementById('txtTotal');
     const btnEnviar = document.getElementById('btnEnviar');
 
-
-
-    // Renderizar productos agrupados por categoría
     function renderProductos() {
       lista.innerHTML = '';
       categorias.forEach(cat => {
         const productosCat = productos.filter(p => p.categoria === cat.key);
         if (productosCat.length > 0) {
-          // Título de la categoría
           const titulo = document.createElement('div');
           titulo.className = 'categoria-titulo';
           titulo.textContent = cat.nombre;
           lista.appendChild(titulo);
 
-          // Contenedor horizontal de productos
           const contenedor = document.createElement('div');
           contenedor.className = 'categoria-productos';
 
@@ -472,6 +459,19 @@
       a.download = 'comprobante-pedido.txt';
       a.click();
       URL.revokeObjectURL(url);
+    }
+
+    // Registrar Service Worker para PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => {
+            console.log('Service Worker registrado:', reg.scope);
+          })
+          .catch(err => {
+            console.log('Error al registrar Service Worker:', err);
+          });
+      });
     }
   </script>
 </body>
