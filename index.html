@@ -3,12 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="enbocadetodos/images/favicon.ico" type="image/x-icon" />
+<meta name="description" content="Realizá tu pedido en Rotisería En Boca de Todos – Hamburguesas, papas, panchos y pizzas en Barrio San Javier, Mendoza.">
+
   <title>En Boca de Todos – Pedidos</title>
   <style>
+    /* (Aquí va todo tu CSS igual, no modifiqué nada) */
     :root { 
       font-family: sans-serif; 
     }
-    body {
+  
+#btnCarrito {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px; /* tamaño fijo */
+  height: 60px; /* altura igual para hacerlo cuadrado */
+  background: #0bc74a;
+  color: #000;
+  border: none;
+  font-size: 1.5rem; /* icono más grande */
+  border-radius: 50%; /* círculo perfecto */
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 1000;
+  padding: 0; /* elimina padding extra */
+  display: flex; /* centra el icono */
+  align-items: center;
+  justify-content: center;
+}
+
+    #pantallaEnvio {
+      display: none;
+    }
+      body {
       margin: 0;
       padding: 1rem;
       background: #f94848 url('enbocadetodos/images/background.jpg') top center no-repeat;
@@ -18,6 +47,14 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
+    button {
+  background: #0bc74a;
+  color: #000;
+}
+button:hover {
+  background: #09a63a;
+}
+
     #overlay {
       position: fixed;
       top: 0;
@@ -73,53 +110,44 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       cursor: pointer;
       transition: transform 0.3s ease;
+      background: rgba(0,0,0,0.4);
+      padding: 5px;
     }
     .header img:hover {
       transform: scale(1.05);
       box-shadow: 0 6px 12px rgba(0,0,0,0.3);
     }
-   h1 {
-  margin: 0;
-  text-align: center;
-  font-size: 1.8rem;
-  color: #fff; /* cambia a blanco para contraste */
-  font-weight: 900;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  position: relative;
-  z-index: 2;
-  background: rgba(0,0,0,0.6); /* sombra satinada negra translúcida */
-  padding: 0.3rem 0.5rem;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4); /* sombra adicional */
-  display: inline-block;
-}
-.header img {
-  background: rgba(0,0,0,0.4); /* fondo satinado detrás */
-  padding: 5px;
-  border-radius: 12px;
-}
-
-.categoria-titulo {
-  font-size: 1.2rem;
-  font-weight: 900;
-  color: #fff;
-  margin: 1.5rem 0 0.5rem 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: center;
-  background: rgba(0,0,0,0.6);
-  padding: 0.3rem 0.5rem;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-  
-  /* Nuevas reglas para centrar */
-  width: 100%;
-  display: block;
-}
-
-
-
+    h1 {
+      margin: 0;
+      text-align: center;
+      font-size: 1.8rem;
+      color: #fff;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 2;
+      background: rgba(0,0,0,0.6);
+      padding: 0.3rem 0.5rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      display: inline-block;
+    }
+    .categoria-titulo {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: #fff;
+      margin: 1.5rem 0 0.5rem 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-align: center;
+      background: rgba(0,0,0,0.6);
+      padding: 0.3rem 0.5rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      width: 100%;
+      display: block;
+    }
     .categoria-productos {
       display: flex;
       overflow-x: auto;
@@ -160,20 +188,19 @@
       transform: scale(1.05);
       box-shadow: 0 6px 12px rgba(0,0,0,0.2);
     }
-   .info {
-  text-align: center;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  font-size: 1rem;
-  position: relative;
-  z-index: 2;
-  background: rgba(0,0,0,0.6); /* sombra satinada negra translúcida */
-  color: #fff; /* letras blancas para contraste */
-  padding: 0.3rem 0.5rem;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4); /* sombra adicional */
-}
-
+    .info {
+      text-align: center;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      font-size: 1rem;
+      position: relative;
+      z-index: 2;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      padding: 0.3rem 0.5rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
     .qty {
       width: 60px;
       margin: 0 auto 0.5rem auto;
@@ -245,10 +272,36 @@
         font-size: 1rem;
       }
     }
+    /* resto del CSS igual... */
   </style>
 </head>
+<div id="carritoModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); z-index:9999; justify-content: center; align-items: center;">
+  <div style="background:#fff; max-width: 500px; width: 90%; padding: 1rem; border-radius: 10px; max-height: 80vh; overflow-y: auto; position: relative;">
+    <h2 style="margin-top:0;">🛒 Tu carrito</h2>
+    <div id="contenidoCarrito"></div>
+    <p id="totalCarrito" style="font-weight:bold; font-size:1.2rem; text-align:right;">Total: $0</p>
+    <button onclick="cerrarCarrito()" style="margin-top:1rem;">Cerrar</button>
+  </div>
+</div>
+<button id="btnCarrito" onclick="abrirCarrito()">
+  🛒 Carrito
+  <span id="badgeCarrito" style="
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0 6px;
+    font-size: 0.8rem;
+    vertical-align: top;
+    margin-left: 5px;
+    display: none;
+  ">0</span>
+</button>
+
+
 <body>
-  <div id="overlay"></div>
+<main class="wrap">
+
+
   <div class="wrap">
     <div class="header">
       <img src="enbocadetodos/images/imagen body.jpg" alt="Logo" />
@@ -283,6 +336,17 @@
       </label>
 
       <p class="total">Total: $<span id="txtTotal">0</span></p>
+      <label>Forma de pago:</label>
+<label>
+  <input type="radio" name="formaPago" value="Efectivo" checked> Efectivo
+</label>
+<label>
+  <input type="radio" name="formaPago" value="Transferencia"> Transferencia bancaria
+</label>
+<label>
+  <input type="radio" name="formaPago" value="Mercado Pago"> Mercado Pago
+</label>
+
       <button type="submit" id="btnEnviar" disabled>Enviar por WhatsApp</button>
     </form>
 
@@ -290,172 +354,293 @@
       <p><strong>Rotisería "En Boca de Todos"</strong></p>
       <p>📍 Barrio San Javier, Manzana Q, Casa 17 – Mendoza</p>
       <p>📞 Tels: 261 622‑4435 / 261 634‑5099 / 261 503‑8515</p>
-      <p>🌐 <a href="https://enbocadetodos.netlify.app" target="_blank" rel="noopener noreferrer">enbocadetodos.netlify.app</a></p>
+      <p>🌐 <a href="https://enbocadetod0s.netlify.app" target="_blank" rel="noopener noreferrer">enbocadetod0s.netlify.app</a></p>
     </div>
   </div>
 
-  <script>
-    const numeroWhatsApp = '5492616224435';
-    const costoEnvioBase = 500;
+  <!-- Pantalla de envío colocada antes del script -->
+  <div id="pantallaEnvio" style="display:none; position: fixed; top:0; left:0; width:100vw; height:100vh; background: rgba(255,255,255,0.95); backdrop-filter: blur(6px); z-index: 9999; justify-content:center; align-items:center; flex-direction: column;">
+    <img src="enbocadetodos/images/imagen body.jpg" alt="Logo" style="max-width: 80vw; max-height: 80vh; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);" />
+    <p style="margin-top: 1rem; font-size: 1.2rem; font-weight: bold;">Enviando pedido...</p>
+  </div>
 
-    const productos = [
-      { id: 1, nombre: 'Chesse Burguer', precio: 4800, foto: 'enbocadetodos/images/chesseburguer.jpg', categoria: 'hamburguesa' },
-      { id: 2, nombre: 'Cono de papas', precio: 2400, foto: 'enbocadetodos/images/cono-papas.jpg', categoria: 'papas' },
-      { id: 3, nombre: 'Fugazzeta', precio: 7800, foto: 'enbocadetodos/images/fugazzeta.jpg', categoria: 'pizza' },
-      { id: 4, nombre: 'Hamburguesa mediana + guarnición', precio: 7800, foto: 'enbocadetodos/images/Hamburgesamediana-guarnicion.jpg', categoria: 'hamburguesa' },
-      { id: 5, nombre: 'Hamburguesa completa', precio: 11000, foto: 'enbocadetodos/images/hamburguesacompleta.jpg', categoria: 'hamburguesa' },
-      { id: 6, nombre: 'Pancho con poncho', precio: 2700, foto: 'enbocadetodos/images/panchoconponcho.jpg', categoria: 'panchos' },
-      { id: 7, nombre: 'Panchos + lluvia de papas', precio: 2000, foto: 'enbocadetodos/images/panchoslluviapapas.jpg', categoria: 'panchos' },
-      { id: 8, nombre: 'Papas chicas', precio: 4000, foto: 'enbocadetodos/images/papas-chicas.jpg', categoria: 'papas' },
-      { id: 9, nombre: 'Papas a caballo', precio: 6000, foto: 'enbocadetodos/images/papasacaballo.jpg', categoria: 'papas' },
-      { id: 10, nombre: 'Papas grandes', precio: 5000, foto: 'enbocadetodos/images/papasgrandes.jpg', categoria: 'papas' },
-      { id: 11, nombre: 'Pizza especial', precio: 7800, foto: 'enbocadetodos/images/pizza-especial.jpg', categoria: 'pizza' }
-    ];
+<script>
+  const numeroWhatsApp = '5492616224435';
+  const costoEnvioBase = 500;
 
-    const categorias = [
-      { key: 'hamburguesa', nombre: 'Hamburguesas' },
-      { key: 'papas', nombre: 'Papas' },
-      { key: 'panchos', nombre: 'Panchos' },
-      { key: 'pizza', nombre: 'Pizzas' }
-    ];
+  const productos = [
+    { id: 1, nombre: 'Chesse Burguer', precio: 4800, foto: 'enbocadetodos/images/chesseburguer.jpg', categoria: 'hamburguesa' },
+    { id: 2, nombre: 'Cono de papas', precio: 2400, foto: 'enbocadetodos/images/cono-papas.jpg', categoria: 'papas' },
+    { id: 3, nombre: 'Fugazzeta', precio: 7800, foto: 'enbocadetodos/images/fugazzeta.jpg', categoria: 'pizza' },
+    { id: 4, nombre: 'Hamburguesa mediana + guarnición', precio: 7800, foto: 'enbocadetodos/images/Hamburgesamediana-guarnicion.jpg', categoria: 'hamburguesa' },
+    { id: 5, nombre: 'Hamburguesa completa', precio: 11000, foto: 'enbocadetodos/images/hamburguesacompleta.jpg', categoria: 'hamburguesa' },
+    { id: 6, nombre: 'Pancho con poncho', precio: 2700, foto: 'enbocadetodos/images/panchoconponcho.jpg', categoria: 'panchos' },
+    { id: 7, nombre: 'Panchos + lluvia de papas', precio: 2000, foto: 'enbocadetodos/images/panchoslluviapapas.jpg', categoria: 'panchos' },
+    { id: 8, nombre: 'Papas chicas', precio: 4000, foto: 'enbocadetodos/images/papas-chicas.jpg', categoria: 'papas' },
+    { id: 9, nombre: 'Papas a caballo', precio: 6000, foto: 'enbocadetodos/images/papasacaballo.jpg', categoria: 'papas' },
+    { id: 10, nombre: 'Papas grandes', precio: 5000, foto: 'enbocadetodos/images/papasgrandes.jpg', categoria: 'papas' },
+    { id: 11, nombre: 'Pizza especial', precio: 7800, foto: 'enbocadetodos/images/pizza-especial.jpg', categoria: 'pizza' }
+  ];
 
-    const lista = document.getElementById('listaProductos');
-    const envioRadio = document.getElementById('envio');
-    const retiroRadio = document.getElementById('retiro');
-    const distanciaExtra = document.getElementById('distanciaExtra');
-    const dirCliente = document.getElementById('dirCliente');
-    const totalSpan = document.getElementById('txtTotal');
-    const btnEnviar = document.getElementById('btnEnviar');
+  const categorias = [
+    { key: 'hamburguesa', nombre: 'Hamburguesas' },
+    { key: 'papas', nombre: 'Papas' },
+    { key: 'panchos', nombre: 'Panchos' },
+    { key: 'pizza', nombre: 'Pizzas' }
+  ];
 
-    function renderProductos() {
-      lista.innerHTML = '';
-      categorias.forEach(cat => {
-        const productosCat = productos.filter(p => p.categoria === cat.key);
-        if (productosCat.length > 0) {
-          const titulo = document.createElement('div');
-          titulo.className = 'categoria-titulo';
-          titulo.textContent = cat.nombre;
-          lista.appendChild(titulo);
+  const lista = document.getElementById('listaProductos');
+  const envioRadio = document.getElementById('envio');
+  const retiroRadio = document.getElementById('retiro');
+  const distanciaExtra = document.getElementById('distanciaExtra');
+  const dirCliente = document.getElementById('dirCliente');
+  const totalSpan = document.getElementById('txtTotal');
+  const btnEnviar = document.getElementById('btnEnviar');
+  const telCliente = document.getElementById('telCliente');
+  const formPedido = document.getElementById('formPedido');
+  const pantallaEnvio = document.getElementById('pantallaEnvio');
+  const badge = document.getElementById('badgeCarrito'); // Badge carrito
 
-          const contenedor = document.createElement('div');
-          contenedor.className = 'categoria-productos';
+  function renderProductos() {
+    lista.innerHTML = '';
+    categorias.forEach(cat => {
+      const productosCat = productos.filter(p => p.categoria === cat.key);
+      if (productosCat.length > 0) {
+        const seccion = document.createElement('section');
 
-          productosCat.forEach(p => {
-            const div = document.createElement('div');
-            div.className = 'producto';
-            div.innerHTML = `
-              <div class="producto-inner">
-                <img src="${p.foto}" alt="${p.nombre}">
-                <div class="info"><strong>${p.nombre}</strong><br>$${p.precio}</div>
-                <input type="number" min="0" value="0" data-id="${p.id}" class="qty">
-              </div>
-              <div class="aderezo">
-                <label>Aderezos:
-                  <input type="text" placeholder="Ej: mayonesa, ketchup" data-aderezo-id="${p.id}">
-                </label>
-              </div>
-            `;
-            contenedor.appendChild(div);
-          });
+        const titulo = document.createElement('h2');
+        titulo.className = 'categoria-titulo';
+        titulo.textContent = cat.nombre;
 
-          lista.appendChild(contenedor);
-        }
-      });
+        seccion.appendChild(titulo);
 
-      agregarEventosCantidades();
-      calcularTotal();
-    }
+        const contenedor = document.createElement('div');
+        contenedor.className = 'categoria-productos';
 
-    function agregarEventosCantidades() {
-      document.querySelectorAll('.qty').forEach(input => {
-        input.addEventListener('input', calcularTotal);
-      });
-    }
+        productosCat.forEach(p => {
+          const div = document.createElement('div');
+          div.className = 'producto';
+          div.innerHTML = `
+            <div class="producto-inner">
+              <img src="${p.foto}" alt="${p.nombre}">
+              <div class="info"><strong>${p.nombre}</strong><br>$${p.precio}</div>
+              <input type="number" min="0" step="1" value="0" data-id="${p.id}" class="qty">
+            </div>
+            <div class="aderezo">
+              <label>Aderezos:
+                <input type="text" placeholder="Ej: mayonesa, ketchup" data-aderezo-id="${p.id}">
+              </label>
+            </div>
+          `;
+          contenedor.appendChild(div);
+        });
 
-    function toggleEnvioFields() {
-      const envioSeleccionado = envioRadio.checked;
-      distanciaExtra.disabled = !envioSeleccionado;
-      dirCliente.disabled = !envioSeleccionado;
-      if (!envioSeleccionado) {
-        distanciaExtra.value = '';
-        dirCliente.value = '';
+        seccion.appendChild(contenedor);
+        lista.appendChild(seccion);
       }
-      calcularTotal();
-    }
-
-    envioRadio.addEventListener('change', toggleEnvioFields);
-    retiroRadio.addEventListener('change', toggleEnvioFields);
-    distanciaExtra.addEventListener('input', calcularTotal);
-
-    function calcularTotal() {
-      let total = 0;
-      document.querySelectorAll('.qty').forEach(inp => {
-        const cantidad = parseInt(inp.value) || 0;
-        if (cantidad > 0) {
-          const prod = productos.find(p => p.id == inp.dataset.id);
-          total += cantidad * prod.precio;
-        }
-      });
-
-      if (envioRadio.checked) {
-        let extra = parseFloat(distanciaExtra.value) || 0;
-        let envioTotal = costoEnvioBase;
-        if (extra > 1) envioTotal += (Math.ceil(extra - 1)) * 500;
-        total += envioTotal;
-      }
-
-      totalSpan.textContent = total;
-      btnEnviar.disabled = total === 0;
-      return total;
-    }
-
-    document.getElementById('formPedido').addEventListener('submit', e => {
-      e.preventDefault();
-      const tel = document.getElementById('telCliente').value.trim();
-      const dir = dirCliente.value.trim();
-
-      const detalles = [];
-      document.querySelectorAll('.qty').forEach(inp => {
-        const cantidad = parseInt(inp.value) || 0;
-        if (cantidad > 0) {
-          const prod = productos.find(p => p.id == inp.dataset.id);
-          const aderezoInput = document.querySelector(`[data-aderezo-id="${prod.id}"]`);
-          const aderezos = aderezoInput?.value.trim();
-          const conAderezo = aderezos ? ` (${aderezos})` : '';
-          detalles.push(`${cantidad} x ${prod.nombre}${conAderezo}`);
-        }
-      });
-
-      if (detalles.length === 0) {
-        alert('Por favor, seleccioná al menos un producto.');
-        return;
-      }
-      if (!tel) {
-        alert('Por favor, ingresá tu teléfono.');
-        return;
-      }
-      if (envioRadio.checked && !dir) {
-        alert('Por favor, ingresá la dirección para envío.');
-        return;
-      }
-
-      let mensaje = `Hola! Quiero pedir: ${detalles.join(', ')}.`;
-      if (envioRadio.checked) {
-        let extraKm = parseFloat(distanciaExtra.value) || 0;
-        let envioCosto = costoEnvioBase;
-        if (extraKm > 1) envioCosto += (Math.ceil(extraKm - 1)) * 500;
-        mensaje += ` Con envío a ${dir} (+$${envioCosto}).`;
-      } else {
-        mensaje += ' Retiro en el local.';
-      }
-      mensaje += ` Total $${calcularTotal()}. Mi teléfono: ${tel}.`;
-
-      const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
-      window.open(url, '_blank');
     });
 
-    renderProductos();
-    toggleEnvioFields();
-  </script>
+    agregarEventosCantidades();
+    agregarEventosAderezos();
+  }
+
+  function agregarEventosCantidades() {
+    document.querySelectorAll('.qty').forEach(input => {
+      input.addEventListener('input', () => {
+        let val = parseInt(input.value);
+        if (isNaN(val) || val < 0) val = 0;
+        if (val > 20) val = 20;
+        input.value = val;
+        actualizarEstadoBotonYTotal();
+      });
+    });
+  }
+
+  function agregarEventosAderezos() {
+    document.querySelectorAll('input[data-aderezo-id]').forEach(input => {
+      input.addEventListener('input', actualizarEstadoBotonYTotal);
+    });
+  }
+
+  function toggleEnvioFields() {
+    const envioSeleccionado = envioRadio.checked;
+    distanciaExtra.disabled = !envioSeleccionado;
+    dirCliente.disabled = !envioSeleccionado;
+    if (!envioSeleccionado) {
+      distanciaExtra.value = '';
+      dirCliente.value = '';
+    }
+    actualizarEstadoBotonYTotal();
+  }
+
+  function validarTelefono(tel) {
+    return /^\d{10}$/.test(tel);
+  }
+
+  function calcularTotal() {
+    let total = 0;
+    document.querySelectorAll('.qty').forEach(inp => {
+      const cantidad = parseInt(inp.value) || 0;
+      if (cantidad > 0) {
+        const prod = productos.find(p => p.id == inp.dataset.id);
+        total += cantidad * prod.precio;
+      }
+    });
+
+    if (envioRadio.checked) {
+      let extra = parseFloat(distanciaExtra.value) || 0;
+      let envioTotal = costoEnvioBase;
+      if (extra > 1) envioTotal += (Math.ceil(extra - 1)) * 500;
+      total += envioTotal;
+    }
+    return total;
+  }
+
+  // Función para actualizar el badge del carrito
+  function actualizarBadgeCarrito() {
+    let totalCantidad = 0;
+    document.querySelectorAll('.qty').forEach(input => {
+      totalCantidad += parseInt(input.value) || 0;
+    });
+    if (totalCantidad > 0) {
+      badge.style.display = 'inline-block';
+      badge.textContent = totalCantidad;
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+
+  // Actualiza botón, total y badge
+  function actualizarEstadoBotonYTotal() {
+    const total = calcularTotal();
+    totalSpan.textContent = total;
+
+    const telValido = validarTelefono(telCliente.value.trim());
+    const hayProductos = total > 0;
+
+    btnEnviar.disabled = !(telValido && hayProductos);
+
+    actualizarBadgeCarrito();
+  }
+
+  envioRadio.addEventListener('change', toggleEnvioFields);
+  retiroRadio.addEventListener('change', toggleEnvioFields);
+  distanciaExtra.addEventListener('input', actualizarEstadoBotonYTotal);
+  telCliente.addEventListener('input', actualizarEstadoBotonYTotal);
+
+  formPedido.addEventListener('submit', e => {
+    e.preventDefault();
+    pantallaEnvio.style.display = 'flex';
+
+    const tel = telCliente.value.trim();
+    const dir = dirCliente.value.trim();
+
+    if (!validarTelefono(tel)) {
+      alert('Por favor, ingresá un teléfono válido de 10 dígitos.');
+      pantallaEnvio.style.display = 'none';
+      return;
+    }
+
+    if (envioRadio.checked && dir === '') {
+      alert('Por favor, ingresá una dirección para el envío.');
+      pantallaEnvio.style.display = 'none';
+      return;
+    }
+
+    const detalles = [];
+    document.querySelectorAll('.qty').forEach(inp => {
+      const cantidad = parseInt(inp.value) || 0;
+      if (cantidad > 0) {
+        const prod = productos.find(p => p.id == inp.dataset.id);
+        const aderezoInput = document.querySelector(`[data-aderezo-id="${prod.id}"]`);
+        const aderezo = aderezoInput && aderezoInput.value.trim() ? ` (Aderezos: ${aderezoInput.value.trim()})` : '';
+        detalles.push(`${prod.nombre} x${cantidad}${aderezo} = $${cantidad * prod.precio}`);
+      }
+    });
+
+    if (detalles.length === 0) {
+      alert('Seleccioná al menos un producto.');
+      pantallaEnvio.style.display = 'none';
+      return;
+    }
+
+    let mensaje = `*Pedido desde En Boca de Todos*\n\n`;
+    mensaje += `*Productos:*\n${detalles.join('\n')}\n\n`;
+
+    if (envioRadio.checked) {
+      let extra = parseFloat(distanciaExtra.value) || 0;
+      let envioTotal = costoEnvioBase;
+      if (extra > 1) envioTotal += (Math.ceil(extra - 1)) * 500;
+      mensaje += `*Envío:* Sí\n`;
+      mensaje += `Distancia estimada: ${extra} km\n`;
+      mensaje += `Costo envío: $${envioTotal}\n\n`;
+      mensaje += `*Dirección:* ${dir}\n\n`;
+    } else {
+      mensaje += `*Envío:* No, retiro en el local\n\n`;
+    }
+
+    // Aquí agregamos forma de pago
+    const formaPago = document.querySelector('input[name="formaPago"]:checked').value;
+    mensaje += `*Forma de pago:* ${formaPago}\n\n`;
+
+    mensaje += `*Teléfono:* ${tel}\n`;
+    mensaje += `\nGracias!`;
+
+    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+
+    window.open(url, '_blank');
+
+    setTimeout(() => {
+      pantallaEnvio.style.display = 'none';
+      formPedido.reset();
+      toggleEnvioFields();
+      actualizarEstadoBotonYTotal();
+    }, 2000);
+  });
+
+  function abrirCarrito() {
+    const modal = document.getElementById('carritoModal');
+    const contenido = document.getElementById('contenidoCarrito');
+    const totalCarrito = document.getElementById('totalCarrito');
+
+    let html = '';
+    let total = 0;
+
+    document.querySelectorAll('.qty').forEach(inp => {
+      const cantidad = parseInt(inp.value) || 0;
+      if (cantidad > 0) {
+        const prod = productos.find(p => p.id == inp.dataset.id);
+        const aderezoInput = document.querySelector(`[data-aderezo-id="${prod.id}"]`);
+        const aderezo = aderezoInput && aderezoInput.value.trim() ? ` (Aderezos: ${aderezoInput.value.trim()})` : '';
+        const subtotal = cantidad * prod.precio;
+        total += subtotal;
+        html += `<p>${prod.nombre} x${cantidad}${aderezo} = $${subtotal}</p>`;
+      }
+    });
+
+    if (envioRadio.checked) {
+      let extra = parseFloat(distanciaExtra.value) || 0;
+      let envioTotal = costoEnvioBase;
+      if (extra > 1) envioTotal += (Math.ceil(extra - 1)) * 500;
+      total += envioTotal;
+      html += `<p><strong>Envío:</strong> $${envioTotal}</p>`;
+    }
+
+    contenido.innerHTML = html || '<p>No hay productos seleccionados.</p>';
+    totalCarrito.textContent = 'Total: $' + total;
+
+    modal.style.display = 'flex';
+  }
+
+  function cerrarCarrito() {
+    document.getElementById('carritoModal').style.display = 'none';
+  }
+
+  renderProductos();
+  toggleEnvioFields();
+  actualizarEstadoBotonYTotal();
+</script>
+
+
 </body>
 </html>
